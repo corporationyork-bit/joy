@@ -37,6 +37,7 @@ h3{margin:14px 0 6px;color:#e2e8f0;font-size:15px}
 .snap-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #132238;flex-wrap:wrap}
 .snap-item:last-child{border-bottom:0}
 .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:#10203A;border:1px solid #1B2E4B;color:#cbd5e1}
+.status-banner{background:#0f2438;border:1px solid #2E9E6B;color:#d1fae5;border-radius:12px;padding:10px 12px;margin-top:10px;font-size:12px;line-height:1.45}
 #modal{position:fixed;inset:0;z-index:1000;background:rgba(4,9,17,.85);display:none;place-items:center;padding:16px;overflow-y:auto}
 .mbox{width:min(94vw,700px);max-height:86vh;overflow-y:auto;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:18px}
 pre.gumcopy{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-word;font-size:12px;color:#cbd5e1;line-height:1.5;margin:8px 0}
@@ -82,6 +83,22 @@ const BASE_PIN = "444033";
 const BK = ["joy_pin","joy_products","joy_log","joy_gumroad"];
 const N = [["dash","Dashboard"],["about","Tentang"],["prod","Pabrik"],["qc","QC"],["vault","Asset Vault"],["gum","Gumroad"],["fin","Keuangan"],["settings","Pengaturan"]];
 const MEM = {};
+
+let dlBannerMsg = "";
+
+function setDlBanner(msg){
+  dlBannerMsg = msg;
+  const el = $("dlBanner");
+  if(el){
+    if(msg){
+      el.classList.remove("hide");
+      el.textContent = msg;
+    }else{
+      el.classList.add("hide");
+      el.textContent = "";
+    }
+  }
+}
 
 function makeMarketPrice(basePrice, cut){
   const raw = Math.max(9.99, Math.min(1000, Number(basePrice) - Number(cut)));
@@ -697,6 +714,7 @@ function buildFullEnglishToolkitLines(x){
   const subtitle = x.subtitle || "How to Price SaaS, AI & Enterprise Solutions with Confidence";
   const aud = x.aud || "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams";
   const tp = buildTopicProfile(x);
+  const marginDecimal = tp.marginPct / 100;
 
   const lines = [
     "JOY CORPORATION",
@@ -747,7 +765,7 @@ function buildFullEnglishToolkitLines(x){
     "Module 5 - Build the Pricing Ladder: Separate Starter ($" + tp.starterPrice + "), Professional ($" + tp.proPrice + "), and Enterprise ($" + tp.entPrice + ") by scope and support level.",
     "Module 6 - Design High-Value Bundles: Group core guides, worksheets, and checklists into a clear solution bundle.",
     "Module 7 - Control Discounting: Set clear rules before offering any discount so margins stay protected.",
-    "Module 8 - Run Paid Pilots: Scope a paid pilot (" + tp.pilotFee + " example) with clear deliverables and conversion criteria.",
+    "Module 8 - Run Paid Pilots: Scope a paid pilot ($" + tp.pilotFee + " example) with clear deliverables and conversion criteria.",
     "Module 9 - Launch with Clarity: Pair your offer with buyer interviews, a one-page proposal, and launch emails.",
     "Module 10 - Review KPIs & Iterate: Track conversion, discount rate, and pilot outcomes to improve each cycle.",
     "",
@@ -777,7 +795,7 @@ function buildFullEnglishToolkitLines(x){
     "",
     "MINIMUM VIABLE PRICE FORMULA",
     "Minimum Viable Price = Cost-to-Serve / (1 - Target Margin Decimal)",
-    "Example: $" + tp.costToServe + " / (1 - " + (marginDecimal).toFixed(2) + ") = $" + tp.mvpPrice + ".",
+    "Example: $" + tp.costToServe + " / (1 - " + marginDecimal.toFixed(2) + ") = $" + tp.mvpPrice + ".",
     "",
     "PRICING LADDER: STARTER, PROFESSIONAL, ENTERPRISE",
     "* Starter ($" + tp.starterPrice + " example): Core checklists and self-guided templates for getting started fast.",
@@ -939,22 +957,43 @@ function createPdfBlobFromPages(pages, prod){
   return new Blob([pdf], { type: "application/pdf" });
 }
 
+function triggerBlobDownload(blob, filename){
+  const url = URL.createObjectURL(blob);
+  try{
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.rel = "noopener";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      a.remove();
+      URL.revokeObjectURL(url);
+    }, 2500);
+    return true;
+  }catch{
+    URL.revokeObjectURL(url);
+    return false;
+  }
+}
+
 function dlPdf(id){
   const x = findProd(id);
-  if(!x) return;
-  const pages = buildFullEnglishToolkitLines(x);
-  const blob = createPdfBlobFromPages(pages, x);
-  const fname = pdfFileName(x);
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = fname;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1500);
-  setRaw("joy_ld", new Date().toISOString());
-  log("download_pdf", fname + ` (${pages.length} pp.)`);
+  if(!x) return false;
+  try{
+    const pages = buildFullEnglishToolkitLines(x);
+    const blob = createPdfBlobFromPages(pages, x);
+    const fname = pdfFileName(x);
+    triggerBlobDownload(blob, fname);
+    setRaw("joy_ld", new Date().toISOString());
+    setDlBanner("Unduhan PDF dipicu: " + fname + " (" + pages.length + " halaman). Jika tidak muncul di notifikasi HP, buka folder Download atau tekan Lihat -> Download PDF Lengkap.");
+    log("download_pdf", fname + ` (${pages.length} pp.)`);
+    return true;
+  }catch(err){
+    setDlBanner("Gagal membuat PDF: " + (err?.message || err));
+    return false;
+  }
 }
 
 function renderCoverCanvas(x){
@@ -1073,15 +1112,9 @@ function renderThumbnailCanvas(x){
 function dlCanvasPng(canvas, filename, logAction){
   canvas.toBlob(blob => {
     if(!blob) return;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    triggerBlobDownload(blob, filename);
     setRaw("joy_ld", new Date().toISOString());
+    setDlBanner("Unduhan gambar dipicu: " + filename + ".");
     log(logAction, filename);
   }, "image/png");
 }
@@ -1296,6 +1329,7 @@ async function go(v){
           <input id="a" placeholder="Target audiens (misal: SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams)">
           <input id="pr" type="number" step="0.01" min="0" placeholder="Harga (kosongkan jika belum ditentukan)">
           <button class="btn p" type="button" onclick="mk()">Buat Draft Permintaan</button>
+          <div id="dlBanner" class="status-banner ${dlBannerMsg ? "" : "hide"}">${E(dlBannerMsg)}</div>
         </div>
         <div class="card">
           <h2>Pabrik Produk — Mode Otomatis (Riset Market &amp; Harga -$1/-$2)</h2>
@@ -1447,8 +1481,8 @@ function mk(){
   };
   SP([item, ...P()]);
   log("draft_permintaan_pdf", title + (price !== null ? ` ($${price})` : " (harga kosong)"));
-  dlPdf(item.id);
   go("prod");
+  setTimeout(() => dlPdf(item.id), 120);
 }
 
 function mkAutoBatch(count){
@@ -1499,10 +1533,10 @@ function mkAutoBatch(count){
 
   SP([...created, ...p]);
   log("riset_harga_produksi_pdf_5", created.map(x => `${x.title} ($${x.price})`).join(", "));
-  created.forEach((item, idx) => {
-    setTimeout(() => dlPdf(item.id), idx * 300);
-  });
   go("prod");
+  created.forEach((item, idx) => {
+    setTimeout(() => dlPdf(item.id), 200 + idx * 900);
+  });
 }
 
 function pub(id){
