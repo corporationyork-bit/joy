@@ -1020,7 +1020,7 @@ function dlThumb(id){
 function buildGumroadCopyText(x){
   const title = x.title || "The Complete Pricing Strategy Toolkit";
   const priceNum = (x.price === null || x.price === undefined || x.price === "") ? null : Number(x.price);
-  const priceStr = priceNum !== null && !Number.isNaN(priceNum) ? "$" + priceNum : "$77 (example within $9.99 - $1,000.00 range)";
+  const priceStr = priceNum !== null && !Number.isNaN(priceNum) ? "$" + priceNum : "$77 ";
   const summary = "Practical 40+ page PDF pricing toolkit for SaaS, AI, and B2B teams with SOPs, 6 worksheets, real case studies, and launch templates.".slice(0, 195);
 
   return [
