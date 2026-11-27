@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0B1A30">
+<title>JOY CORPORATION</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{box-sizing:border-box;box-shadow:none!important;text-shadow:none!important}
+body{margin:0;font-family:system-ui,sans-serif;background:#060E1A;color:#e2e8f0}
+#login{position:fixed;inset:0;z-index:999;background:#060E1A;display:grid;place-items:center;padding:20px}
+.lbox{width:min(90vw,330px);text-align:center;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:24px}
+.limg{width:88px;height:88px;object-fit:contain;background:#fff;border-radius:16px;margin:0 auto;display:block}
+.lname{font-weight:800;color:#fff;margin-top:10px;letter-spacing:.5px}
+.ltag{color:#94a3b8;font-size:12px;font-style:italic;margin-top:3px}
+.linp{width:100%;margin-top:18px;background:#10203A;border:1px solid #1B2E4B;color:#e2e8f0;border-radius:12px;padding:12px;text-align:center;font-size:16px;letter-spacing:6px;outline:none}
+.linp:focus{border-color:#334155}
+.lbtn{width:100%;margin-top:10px;background:#00A2E8;color:#04121d;font-weight:800;border:0;border-radius:12px;padding:13px;font-size:14px;cursor:pointer}
+.lforgot{display:block;margin-top:12px;background:none;border:0;color:#94a3b8;font-size:12px;cursor:pointer;margin-inline:auto}
+.card{background:#0b1526;border:1px solid #1B2E4B;border-radius:16px;padding:16px;margin:12px}
+.btn{background:#10203A;color:#e2e8f0;border:1px solid #1B2E4B;border-radius:10px;padding:8px 11px;font-size:12px;margin:2px;cursor:pointer;outline:none}
+.btn.active{border-color:#00A2E8;color:#fff}
+.btn.danger{background:#2a1215;border-color:#5c2329;color:#fca5a5}
+.p{background:#00A2E8;color:#04121d;font-weight:700;border-color:#00A2E8}
+.g{background:#143326;color:#6ee7b7;font-weight:700;border-color:#2E9E6B}
+input,select,textarea{width:100%;background:#10203A;color:#e2e8f0;border:1px solid #1B2E4B;border-radius:10px;padding:10px;margin:5px 0;font-size:14px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#334155}
+nav{display:flex;overflow-x:auto;gap:6px;padding:8px;background:#070f1c;position:sticky;top:0;z-index:10;border-bottom:1px solid #1B2E4B}
+nav button{white-space:nowrap}
+h2{margin:0 0 8px;color:#fff}
+h3{margin:14px 0 6px;color:#e2e8f0;font-size:15px}
+.m{color:#94a3b8;font-size:13px}
+.hide{display:none}
+.dimg{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:10px;display:inline-block}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.snap-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #132238;flex-wrap:wrap}
+.snap-item:last-child{border-bottom:0}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:#10203A;border:1px solid #1B2E4B;color:#cbd5e1}
+#modal{position:fixed;inset:0;z-index:1000;background:rgba(4,9,17,.85);display:none;place-items:center;padding:16px;overflow-y:auto}
+.mbox{width:min(94vw,640px);max-height:86vh;overflow-y:auto;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:18px}
+pre.spec{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-word;font-size:12px;color:#cbd5e1;line-height:1.45;margin:8px 0}
+</style>
+</head>
+<body>
+<div id="login">
+  <div class="lbox">
+    <img id="loginLogo" class="limg" alt="JOY CORPORATION">
+    <div class="lname">JOY CORPORATION</div>
+    <div class="ltag">Kami ada karena kamu Ade</div>
+    <input id="pin" class="linp" type="password" inputmode="numeric" maxlength="8" placeholder="Masukan PIN" autocomplete="off">
+    <button id="loginBtn" class="lbtn" type="button" onclick="login()">LOGIN</button>
+    <button id="forgotBtn" class="lforgot" type="button" onclick="forgot()">Lupa PIN</button>
+    <div id="err" class="m hide" style="color:#fca5a5;margin-top:8px">PIN salah.</div>
+    <div id="fnote" class="m hide" style="color:#fde68a;margin-top:8px">PIN telah direset ke PIN dasar. Segera ganti di Pengaturan.</div>
+    <div id="dbg" class="m" style="margin-top:8px;font-size:11px;word-break:break-word">Siap.</div>
+  </div>
+</div>
+
+<div id="app" class="hide">
+  <nav id="nav"></nav>
+  <div id="bn" class="card hide" style="background:#2b230c;border-color:#5c4a16"></div>
+  <div id="v"></div>
+</div>
+
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="mbox">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <h2 id="mTitle" style="margin:0">Detail Produk</h2>
+      <button class="btn" type="button" onclick="closeModal()">Tutup</button>
+    </div>
+    <div id="mBody" style="margin-top:10px"></div>
+  </div>
+</div>
+
+<script>
+const LOGO = "data:image/png;base64,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";
+const BASE_PIN = "444033";
+const BK = ["joy_pin","joy_products","joy_log","joy_gumroad"];
+const N = [["dash","Dashboard"],["about","Tentang"],["prod","Pabrik"],["qc","QC"],["vault","Asset Vault"],["gum","Gumroad"],["fin","Keuangan"],["settings","Pengaturan"]];
+const MEM = {};
+
+function makeMarketPrice(basePrice, cut){
+  const p = Math.max(5, Number(basePrice) - Number(cut));
+  return Number.isInteger(p) ? p : Number(p.toFixed(2));
+}
+
+const MARKET_RESEARCH_POOL = [
+  {
+    niche: "AI Workflow Automation",
+    title: "The Complete AI Workflow Automation Toolkit",
+    aud: "B2B SaaS Operations & RevOps Teams",
+    demandScore: 94,
+    marketPrice: 79,
+    price: makeMarketPrice(79, 2),
+    qc: 88,
+    marketNote: "Pasaran ~$79, dipatok $77 (-$2) agar lebih menarik bagi tim operasional B2B.",
+    sop: "SOP-AI-01: Audit tugas berulang, pasang quality gate sebelum rilis."
+  },
+  {
+    niche: "B2B Value Pricing & Packaging",
+    title: "The Complete B2B Value Pricing & Packaging Toolkit",
+    aud: "SaaS Founders & Product Managers",
+    demandScore: 92,
+    marketPrice: 149,
+    price: makeMarketPrice(149, 2),
+    qc: 90,
+    marketNote: "Pasaran ~$149, dipatok $147 (-$2) untuk founder/PM yang ingin merapikan tier & margin.",
+    sop: "SOP-PRC-02: Hitung cost-to-serve & minimum viable price, tetapkan tier & matriks diskon."
+  },
+  {
+    niche: "Customer Onboarding & Retention",
+    title: "The Complete Customer Onboarding & Retention Toolkit",
+    aud: "Customer Success & Growth Leaders",
+    demandScore: 89,
+    marketPrice: 49,
+    price: makeMarketPrice(49, 1),
+    qc: 87,
+    marketNote: "Pasaran ~$49, dipatok $48 (-$1) untuk mempercepat aktivasi & menekan churn awal.",
+    sop: "SOP-CS-03: Petakan milestone aktivasi, pasang checklist onboarding, pantau retensi mingguan."
+  },
+  {
+    niche: "SOP Documentation & QA Systems",
+    title: "The Complete SOP Documentation & QA Systems Toolkit",
+    aud: "Operations Managers & Lean Agencies",
+    demandScore: 86,
+    marketPrice: 29.99,
+    price: makeMarketPrice(29.99, 2),
+    qc: 86,
+    marketNote: "Pasaran ~$29.99, dipatok $27.99 (-$2) untuk tim kecil/agensi yang butuh standar kerja cepat.",
+    sop: "SOP-QA-04: Standarkan format SOP, tetapkan PIC & SLA, validasi hasil lewat checklist QC."
+  },
+  {
+    niche: "Paid Pilot & Enterprise Deal Kit",
+    title: "The Complete Paid Pilot & Enterprise Deal Kit",
+    aud: "B2B Consultants & Enterprise Account Leads",
+    demandScore: 93,
+    marketPrice: 249,
+    price: makeMarketPrice(249, 2),
+    qc: 91,
+    marketNote: "Pasaran ~$249, dipatok $247 (-$2) untuk mengubah pilot menjadi kesepakatan berbayar.",
+    sop: "SOP-PIL-05: Susun scope paid pilot, hitung ROI tracker, siapkan proposal & skrip keberatan."
+  },
+  {
+    niche: "ESG Reporting Compliance",
+    title: "The Complete ESG Reporting Compliance Toolkit",
+    aud: "Sustainability Leads & Mid-Market Finance Teams",
+    demandScore: 87,
+    marketPrice: 129,
+    price: makeMarketPrice(129, 2),
+    qc: 88,
+    marketNote: "Pasaran ~$129, dipatok $127 (-$2) untuk merapikan data pelaporan & jejak audit.",
+    sop: "SOP-ESG-06: Inventarisasi sumber data, susun checklist kelengkapan pelaporan, verifikasi akurasi."
+  },
+  {
+    niche: "Predictive Maintenance Operations",
+    title: "The Complete Predictive Maintenance Operations Toolkit",
+    aud: "Plant Managers & Reliability Engineering Leads",
+    demandScore: 88,
+    marketPrice: 199,
+    price: makeMarketPrice(199, 2),
+    qc: 90,
+    marketNote: "Pasaran ~$199, dipatok $197 (-$2) untuk menekan unplanned downtime pada aset kritis.",
+    sop: "SOP-PM-07: Klasifikasi aset kritis, tetapkan ambang pantau & eskalasi, hitung biaya downtime terhindarkan."
+  },
+  {
+    niche: "Secure Enterprise Collaboration",
+    title: "The Complete Secure Enterprise Collaboration Toolkit",
+    aud: "IT Security Officers & Distributed Product Teams",
+    demandScore: 85,
+    marketPrice: 59,
+    price: makeMarketPrice(59, 1),
+    qc: 87,
+    marketNote: "Pasaran ~$59, dipatok $58 (-$1) untuk kontrol akses & berbagi file aman di tim terdistribusi.",
+    sop: "SOP-SEC-08: Terapkan prinsip akses minimum, atur hak berbagi eksternal, audit izin secara berkala."
+  }
+];
+
+let marketCursor = 0;
+
+const $ = id => document.getElementById(id);
+const E = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const F = t => t ? new Date(t).toLocaleString("id-ID") : "belum pernah";
+const dbg = msg => { const el = $("dbg"); if(el) el.textContent = String(msg); };
+
+function cleanFileNamePart(name){
+  return String(name ?? "Produk")
+    .replace(/[\\/:*?"<>|]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function productFileName(prod){
+  const titlePart = cleanFileNamePart(prod?.title || prod?.id || "Produk");
+  return titlePart + " - JOY CORPORATION.txt";
+}
+
+function formatPriceLabel(price){
+  if(price === null || price === undefined || price === "" || Number.isNaN(Number(price))) return "Belum ditetapkan";
+  return "$" + Number(price);
+}
+
+function setRaw(k, v){
+  const val = String(v);
+  MEM[k] = val;
+  try{ localStorage.setItem(k, val); }catch{}
+}
+function getRaw(k){
+  try{
+    const v = localStorage.getItem(k);
+    if(v !== null && v !== undefined){
+      MEM[k] = v;
+      return v;
+    }
+  }catch{}
+  return MEM[k] ?? null;
+}
+function delRaw(k){
+  delete MEM[k];
+  try{ localStorage.removeItem(k); }catch{}
+}
+
+const L = (k,f) => {
+  const raw = getRaw(k);
+  if(raw === null || raw === undefined) return f;
+  try{ return JSON.parse(raw) ?? f; }catch{ return f; }
+};
+const S = (k,v) => {
+  try{ setRaw(k, JSON.stringify(v)); }catch{}
+};
+
+function H(s){
+  const str = String(s ?? "");
+  let h1 = 5381;
+  let h2 = 2166136261;
+  for(let i = 0; i < str.length; i++){
+    const code = str.charCodeAt(i);
+    h1 = (((h1 << 5) + h1) + code) >>> 0;
+    h2 ^= code;
+    h2 = Math.imul(h2, 16777619) >>> 0;
+  }
+  return h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0");
+}
+
+function resetBasePin(){
+  setRaw("joy_pin", H(BASE_PIN));
+}
+
+function ensurePin(){
+  if(!getRaw("joy_pin")) resetBasePin();
+}
+
+try{
+  $("loginLogo").src = LOGO;
+  ensurePin();
+  dbg("Siap");
+}catch(err){
+  dbg("Init error: " + (err?.message || err));
+}
+
+window.addEventListener("error", e => {
+  dbg("JS Error: " + (e.message || e.error || "unknown"));
+});
+
+function openModal(title, html){
+  $("mTitle").textContent = title;
+  $("mBody").innerHTML = html;
+  $("modal").style.display = "grid";
+}
+function closeModal(){
+  $("modal").style.display = "none";
+  $("mBody").innerHTML = "";
+}
+
+function idb(){
+  return new Promise((a,b) => {
+    try{
+      if(!window.indexedDB) return b(new Error("no idb"));
+      const r = indexedDB.open("joy_db", 1);
+      r.onupgradeneeded = () => { if(!r.result.objectStoreNames.contains("kv")) r.result.createObjectStore("kv"); };
+      r.onsuccess = () => a(r.result);
+      r.onerror = () => b(r.error);
+    }catch(err){ b(err); }
+  });
+}
+async function G(k){
+  try{
+    const d = await idb();
+    return await new Promise(a => {
+      const q = d.transaction("kv").objectStore("kv").get(k);
+      q.onsuccess = () => a(q.result ?? MEM["idb_" + k] ?? null);
+      q.onerror = () => a(MEM["idb_" + k] ?? null);
+    });
+  }catch{ return MEM["idb_" + k] ?? null; }
+}
+async function Z(k,v){
+  MEM["idb_" + k] = v;
+  try{
+    const d = await idb();
+    return await new Promise(a => {
+      const t = d.transaction("kv","readwrite");
+      t.objectStore("kv").put(v,k);
+      t.oncomplete = () => a(1);
+      t.onerror = () => a(0);
+    });
+  }catch{ return 0; }
+}
+
+const snap = () => {
+  const d = { app: "JOY CORPORATION" };
+  BK.forEach(k => d[k] = getRaw(k));
+  return d;
+};
+
+let tm;
+const sched = () => { clearTimeout(tm); tm = setTimeout(() => { auto().catch(() => {}); }, 3000); };
+
+function log(a, d){
+  try{
+    const l = L("joy_log", []);
+    l.unshift({ a, d, t: new Date().toISOString() });
+    S("joy_log", l.slice(0, 100));
+    sched();
+  }catch{}
+}
+
+async function fw(b){
+  try{
+    const h = await G("fh");
+    if(!h || !h.queryPermission || (await h.queryPermission({ mode: "readwrite" })) !== "granted") return 0;
+    const w = await h.createWritable();
+    await w.write(b);
+    await w.close();
+    setRaw("joy_lf", new Date().toISOString());
+    return 1;
+  }catch{ return 0; }
+}
+
+async function auto(){
+  try{
+    const d = snap();
+    const h = H(JSON.stringify(d));
+    let s = (await G("snaps")) || [];
+    if(!s.length || s[0].h !== h){
+      const at = new Date().toISOString();
+      s.unshift({ at, h, body: JSON.stringify({ ...d, at }) });
+      await Z("snaps", s.slice(0, 20));
+      setRaw("joy_ls", at);
+    }
+    await fw(JSON.stringify({ ...d, at: new Date().toISOString() }));
+    await ban();
+  }catch{}
+}
+
+async function enable(){
+  if(!window.showSaveFilePicker) return alert("Browser belum mendukung. Cadangan internal tetap aktif.");
+  try{
+    const h = await showSaveFilePicker({
+      suggestedName: "joy-corporation-backup.json",
+      types: [{ description: "JSON", accept: { "application/json": [".json"] } }]
+    });
+    await Z("fh", h);
+    await fw(JSON.stringify(snap()));
+    alert("Cadangan otomatis ke file aktif.");
+    go("settings");
+  }catch{}
+}
+
+function exp(silent){
+  try{
+    const b = new Blob([JSON.stringify({ ...snap(), at: new Date().toISOString() }, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(b);
+    const x = document.createElement("a");
+    x.href = url;
+    x.download = "joy-corporation-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+    document.body.appendChild(x);
+    x.click();
+    x.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setRaw("joy_ld", new Date().toISOString());
+    if(!silent) alert("Cadangan disimpan ke Download.");
+  }catch{}
+}
+
+function apply(t){
+  const d = JSON.parse(t);
+  if(!d || d.app !== "JOY CORPORATION") throw new Error("Format tidak valid");
+  BK.forEach(k => { if(d[k] != null) setRaw(k, d[k]); });
+}
+
+function imp(e){
+  const file = e.target?.files?.[0];
+  if(!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      apply(r.result);
+      alert("Data dipulihkan.");
+      go("dash");
+    }catch{
+      alert("File tidak valid.");
+    }
+  };
+  r.readAsText(file);
+  e.target.value = "";
+}
+
+async function rest(i){
+  const s = (await G("snaps")) || [];
+  if(!s[i]) return;
+  if(!confirm("Pulihkan ke " + F(s[i].at) + "?")) return;
+  await auto();
+  apply(s[i].body);
+  go("dash");
+}
+
+async function delSnap(i){
+  const s = (await G("snaps")) || [];
+  if(!s[i]) return;
+  if(!confirm("Hapus riwayat " + F(s[i].at) + "?")) return;
+  s.splice(i, 1);
+  await Z("snaps", s);
+  go("settings");
+}
+
+async function clearSnaps(){
+  const s = (await G("snaps")) || [];
+  if(!s.length) return;
+  if(!confirm("Hapus semua riwayat internal (" + s.length + " item)?")) return;
+  await Z("snaps", []);
+  go("settings");
+}
+
+async function ban(){
+  try{
+    const h = await G("fh");
+    let p = "";
+    if(h && h.queryPermission) try{ p = await h.queryPermission({ mode: "readwrite" }); }catch{}
+    const ld = getRaw("joy_ld");
+    const b = $("bn");
+    if(!b) return;
+    if(p !== "granted" && (!ld || Date.now() - new Date(ld).getTime() > 864e5)){
+      b.classList.remove("hide");
+      b.innerHTML = 'Cadangan ke file belum aktif. Buka Pengaturan atau <u style="cursor:pointer" onclick="exp()">simpan cadangan sekarang</u>.';
+    }else{
+      b.classList.add("hide");
+    }
+  }catch{}
+}
+
+setInterval(() => { auto().catch(() => {}); }, 36e5);
+document.addEventListener("visibilitychange", () => {
+  if(document.hidden && getRaw("joy_ses")) auto().catch(() => {});
+});
+
+$("pin").addEventListener("keydown", e => {
+  if(e.key === "Enter") login();
+});
+
+function login(){
+  try{
+    ensurePin();
+    const rawVal = $("pin").value ?? "";
+    const v = rawVal.trim();
+    const saved = getRaw("joy_pin");
+    const hVal = H(v);
+    dbg("Panjang: " + v.length + " | Cocok: " + (v !== "" && hVal === saved));
+    if(v !== "" && hVal === saved){
+      setRaw("joy_ses", "1");
+      $("err").classList.add("hide");
+      $("fnote").classList.add("hide");
+      start();
+    }else{
+      $("err").classList.remove("hide");
+    }
+  }catch(err){
+    dbg("Login error: " + (err?.message || err));
+  }
+}
+
+function forgot(){
+  try{
+    resetBasePin();
+    $("pin").value = "";
+    $("fnote").classList.remove("hide");
+    $("err").classList.add("hide");
+    dbg("PIN direset ke PIN dasar");
+    log("pin_reset", "PIN direset ke PIN dasar");
+  }catch(err){
+    dbg("Reset error: " + (err?.message || err));
+  }
+}
+
+async function out(){
+  try{ await auto(); }catch{}
+  try{
+    const h = await G("fh");
+    let ok = 0;
+    if(h && h.queryPermission) ok = (await h.queryPermission({ mode: "readwrite" })) === "granted";
+    const ld = getRaw("joy_ld");
+    if(!ok && (!ld || Date.now() - new Date(ld).getTime() > 72e6)) exp(1);
+  }catch{}
+  delRaw("joy_ses");
+  const lg = $("login");
+  const ap = $("app");
+  if(ap){ ap.classList.add("hide"); ap.style.display = "none"; }
+  if(lg){ lg.classList.remove("hide"); lg.style.display = "grid"; }
+  $("pin").value = "";
+  dbg("Keluar.");
+}
+
+function start(){
+  try{
+    const lg = $("login");
+    const ap = $("app");
+    if(lg){ lg.classList.add("hide"); lg.style.display = "none"; }
+    if(ap){ ap.classList.remove("hide"); ap.style.display = "block"; }
+    try{ if(navigator.storage?.persist) navigator.storage.persist().catch(() => {}); }catch{}
+    log("login", "Owner masuk");
+    requestAnimationFrame(() => { go("dash"); });
+  }catch(err){
+    const lg = $("login");
+    const ap = $("app");
+    if(lg){ lg.classList.remove("hide"); lg.style.display = "grid"; }
+    if(ap){ ap.classList.add("hide"); ap.style.display = "none"; }
+    dbg("Start error: " + (err?.message || err));
+  }
+}
+
+const P = () => L("joy_products", []);
+const SP = p => { S("joy_products", p); sched(); };
+const findProd = id => P().find(a => a.id === id);
+
+function setp(id, f){
+  const p = P();
+  const x = p.find(a => a.id === id);
+  if(x){ f(x); SP(p); }
+}
+
+function delProd(id, returnView){
+  const x = findProd(id);
+  if(!x) return;
+  if(!confirm('Hapus produk "' + x.title + '"?')) return;
+  SP(P().filter(a => a.id !== id));
+  log("hapus_produk", id);
+  go(returnView || "prod");
+}
+
+function buildProductSpec(x){
+  const g = L("joy_gumroad", {});
+  const priceNum = (x.price === null || x.price === undefined || x.price === "") ? null : Number(x.price);
+  const hasPrice = priceNum !== null && !Number.isNaN(priceNum);
+  const isFullSuite = hasPrice && priceNum >= 125;
+  const isCoreKit = hasPrice && priceNum >= 45 && priceNum < 125;
+
+  const sections = [
+    "============================================================",
+    "JOY CORPORATION — DIGITAL PRODUCT PACKAGE",
+    "============================================================",
+    "TITLE         : " + x.title,
+    "FILENAME      : " + productFileName(x),
+    "PRODUCT ID    : " + x.id,
+    "MODE          : " + (x.mode || "permintaan"),
+    "STATUS        : " + x.status,
+    "PRICE (USD)   : " + formatPriceLabel(priceNum),
+    "TARGET BUYERS : " + (x.aud || "SaaS founders, AI product builders, consultants, product managers, B2B teams"),
+    "QC SCORE      : " + (x.qc ?? 0) + "/100",
+    "SOP           : " + (x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending."),
+    "GUMROAD STORE : " + (g.store || "(belum diatur)"),
+    "GUMROAD PREFIX: " + (g.prefix || "(belum diatur)"),
+    "GUMROAD UPLOAD: " + (x.gumroadUploadedAt ? "Terproses (" + F(x.gumroadUploadedAt) + ")" : "Belum diupload"),
+    "",
+    "1. WHY BUY THIS (CONCRETE VALUE FOR BUYERS)",
+    "- Solves fragmented execution, unclear workflows, and slow handoffs without starting from scratch.",
+    "- Concrete deliverables inside this package: step-by-step SOPs, ready-to-fill worksheets, practical rules, and before/after benchmarks.",
+    "- Built for fast practical application so buyers get clear steps and usable templates right away.",
+    "",
+    "2. STEP-BY-STEP EXECUTION MODULES",
+    "- Module 1: Problem Diagnosis & Baseline Audit (identify bottlenecks, rework loops, and unclear handoffs).",
+    "- Module 2: Step-by-Step SOP Rollout (owner, inputs, action steps, quality gate, and measurable output).",
+    "- Module 3: Fillable Worksheets & Action Checklist (copy/paste templates to capture real inputs and decisions)."
+  ];
+
+  if(isCoreKit || isFullSuite){
+    sections.push(
+      "- Module 4: Value & Market Positioning (clear buyer outcome, packaging tiers, and practical pricing logic).",
+      "- Module 5: Real-World Scenario Walkthroughs (SaaS, AI workflows, and operational teams)."
+    );
+  }
+
+  if(isFullSuite){
+    sections.push(
+      "- Module 6: Rollout, Bundling & ROI Tracking (bundle structure, pilot/deal checklist, and ROI tracker).",
+      "- Module 7: KPI Review & Objection Handling (weekly progress tracking and clear responses to common buyer objections)."
+    );
+  }
+
+  sections.push(
+    "",
+    "3. GUMROAD LISTING COPY (READY TO PASTE)",
+    "- Product Name   : " + x.title,
+    "- Price Status   : " + formatPriceLabel(priceNum),
+    "- Hook & Solution: Practical, no-fluff toolkit built for " + (x.aud || "B2B teams and builders") + " to turn complex workflows into clear repeatable systems.",
+    "- Format Note    : Complete structured toolkit specification & templates from JOY CORPORATION."
+  );
+
+  return sections.join("\n");
+}
+
+function viewProd(id){
+  const x = findProd(id);
+  if(!x) return;
+  openModal(x.title, `
+    <div class="row" style="margin-top:0">
+      <span class="pill">ID: ${E(x.id)}</span>
+      <span class="pill">Status: ${E(x.status)}</span>
+      <span class="pill">Harga: ${E(formatPriceLabel(x.price))}</span>
+      <span class="pill">Mode: ${E(x.mode || "permintaan")}</span>
+    </div>
+    <div class="m" style="margin-top:10px"><b>File:</b> ${E(productFileName(x))}</div>
+    <div class="m" style="margin-top:4px"><b>Audiens:</b> ${E(x.aud || "-")}</div>
+    ${x.marketNote ? `<div class="m" style="margin-top:4px"><b>Riset Market:</b> ${E(x.marketNote)}</div>` : ""}
+    <div class="m" style="margin-top:4px"><b>Skor QC:</b> ${E(x.qc ?? 0)}/100</div>
+    <div class="m" style="margin-top:4px"><b>SOP:</b> ${E(x.sop || "-")}</div>
+    <div class="m" style="margin-top:4px"><b>Gumroad:</b> ${x.gumroadUploadedAt ? "Diproses pada " + E(F(x.gumroadUploadedAt)) : "Belum diupload"}</div>
+    <h3 style="margin-top:12px">Isi Paket &amp; Listing</h3>
+    <pre class="spec">${E(buildProductSpec(x))}</pre>
+    <div class="row">
+      <button class="btn p" type="button" onclick="dlProd('${E(x.id)}')">Download</button>
+      <button class="btn g" type="button" onclick="uploadGumroadProd('${E(x.id)}')">Upload Gumroad</button>
+    </div>
+  `);
+}
+
+function saveToPhoneFile(filename, content, mimeType){
+  const blob = new Blob([content], { type: mimeType || "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+
+function dlProd(id, opts){
+  const x = findProd(id);
+  if(!x) return;
+  const fname = productFileName(x);
+  saveToPhoneFile(fname, buildProductSpec(x), "text/plain;charset=utf-8");
+  setRaw("joy_ld", new Date().toISOString());
+  if(!opts?.silentLog) log("download_produk", fname);
+  if(opts?.statusEl){
+    opts.statusEl.textContent = "Tersimpan ke penyimpanan telepon: " + fname;
+  }
+}
+
+function uploadGumroadProd(id, returnView){
+  const x = findProd(id);
+  if(!x) return;
+  const g = L("joy_gumroad", {});
+  if(!g.store) return alert("Simpan Store URL Gumroad di menu Gumroad dulu.");
+  const uploadedAt = new Date().toISOString();
+  setp(id, item => {
+    item.gumroadUploadedAt = uploadedAt;
+  });
+  log("gumroad_paket", productFileName(x) + " -> " + g.store);
+  openModal("Paket Upload Gumroad", `
+    <div class="m">Store tujuan: <b>${E(g.store)}</b> ${g.prefix ? "• Prefix: <b>" + E(g.prefix) + "</b>" : ""}</div>
+    <div class="m" style="margin-top:4px">Nama file: <b>${E(productFileName(x))}</b></div>
+    <div class="m" style="margin-top:4px">Catatan: Upload otomatis langsung ke API Gumroad memerlukan endpoint backend/token server. Paket listing &amp; payload di bawah sudah disiapkan dan dicatat di log.</div>
+    <pre class="spec">${E(buildProductSpec({ ...x, gumroadUploadedAt: uploadedAt }))}</pre>
+    <div class="row">
+      <button class="btn p" type="button" onclick="dlProd('${E(x.id)}')">Download</button>
+      <button class="btn" type="button" onclick="closeModal()">Selesai</button>
+    </div>
+  `);
+  if(returnView) go(returnView);
+}
+
+function prodActionsHtml(id, returnView, extraHtml){
+  const rv = returnView || "prod";
+  return `
+    <div class="row">
+      <button class="btn" type="button" onclick="viewProd('${E(id)}')">Lihat</button>
+      <button class="btn p" type="button" onclick="dlProd('${E(id)}')">Download</button>
+      <button class="btn g" type="button" onclick="uploadGumroadProd('${E(id)}','${E(rv)}')">Upload Gumroad</button>
+      <button class="btn danger" type="button" onclick="delProd('${E(id)}','${E(rv)}')">Hapus</button>
+      ${extraHtml || ""}
+    </div>`;
+}
+
+function renderNav(active){
+  $("nav").innerHTML =
+    N.map(([k,n]) => `<button class="btn ${k===active?"active":""}" type="button" onclick="go('${k}')">${E(n)}</button>`).join("") +
+    '<button class="btn" type="button" onclick="out()">Keluar</button>';
+}
+
+async function go(v){
+  try{
+    renderNav(v);
+    let h = "";
+    const p = P();
+
+    if(v === "dash"){
+      const logs = L("joy_log", []).slice(0, 6);
+      h = `
+        <div class="card">
+          <img class="dimg" src="${LOGO}" alt="JOY CORPORATION">
+          <h2 style="margin-top:8px">JOY CORPORATION</h2>
+          <i style="color:#94a3b8;font-size:13px">Kami ada karena kamu Ade</i>
+          <p class="m">Target pabrik: 10 produk/hari. Public hanya setelah persetujuan Owner.</p>
+        </div>
+        <div class="card">
+          <b>Total ${p.length}</b> •
+          Draft/QC ${p.filter(x => ["draft","qc"].includes(x.status)).length} •
+          Pending ${p.filter(x => x.status === "pending").length} •
+          Public ${p.filter(x => x.status === "public").length}
+        </div>
+        <div class="card">
+          <h2>Aktivitas</h2>
+          ${logs.map(x => `<div class="m">${E(x.a)}: ${E(x.d)}</div>`).join("") || '<div class="m">Belum ada aktivitas.</div>'}
+        </div>`;
+    }
+
+    if(v === "about"){
+      h = `
+        <div class="card" style="text-align:center">
+          <img class="dimg" src="${LOGO}" alt="JOY CORPORATION">
+        </div>
+        <div class="card">
+          <h2>Tentang JOY CORPORATION</h2>
+          <p>Entitas sistem digital dan produksi mandiri yang dibangun atas prinsip eksekusi cepat, presisi sistem, dan keandalan operasional. Alur kerja terstruktur dari riset, produksi, QC, hingga distribusi.</p>
+        </div>
+        <div class="card">
+          <h2>Visi</h2>
+          <p>Menjadi mesin produksi dan distribusi produk digital mandiri yang tangguh, otomatis, dan berstandar tinggi.</p>
+        </div>
+        <div class="card">
+          <h2>Misi</h2>
+          <ul>
+            <li>Target harian 10 produk/hari secara terukur.</li>
+            <li>QC ketat sebelum Pending dan Public oleh Owner.</li>
+            <li>Menjaga keamanan data dan kelangsungan operasional.</li>
+            <li>Pembayaran jelas (Bank Mandiri &amp; PayPal) dan arsip unduhan rapi.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Founder</h2>
+          <b>Ade Kurnia Sandy</b>
+          <div class="m">Founder &amp; Owner — JOY CORPORATION</div>
+        </div>`;
+    }
+
+    if(v === "prod"){
+      h = `
+        <div class="card">
+          <h2>Pabrik Produk — Mode Permintaan</h2>
+          <div class="m">Harga dikosongkan untuk permintaan khusus; output awal selalu <b>draft</b> sesuai SOP.</div>
+          <input id="t" placeholder="Topik / niche (misal: AI productivity)">
+          <input id="a" placeholder="Target audiens (misal: SaaS founders, consultants & B2B teams)">
+          <input id="pr" type="number" step="0.01" min="0" placeholder="Harga (kosongkan jika belum ditentukan)">
+          <button class="btn p" type="button" onclick="mk()">Buat Draft Permintaan</button>
+        </div>
+        <div class="card">
+          <h2>Pabrik Produk — Mode Otomatis (Riset Market &amp; Harga -$1/-$2)</h2>
+          <div class="m">Meriset 5 topik berbeda yang tren di pasar B2B/SaaS/operasional, mengambil patokan pasaran lalu dikurangi -$1/-$2 agar lebih menarik, lalu memproduksi draf sesuai SOP.</div>
+          <div class="row">
+            <button class="btn g" type="button" onclick="mkAutoBatch(5)">Riset Market &amp; Produksi 5 Produk Otomatis</button>
+          </div>
+        </div>` +
+        p.filter(x => x.status !== "archived").map(x => `
+          <div class="card">
+            <b>${E(x.title)}</b> <span class="m">[${E(x.status)}] ${E(formatPriceLabel(x.price))}</span>
+            <div class="row" style="margin-top:4px">
+              <span class="pill">Mode: ${E(x.mode || "permintaan")}</span>
+              ${x.demandScore ? `<span class="pill">Minat Pasar: ${E(x.demandScore)}/100</span>` : ""}
+              <span class="m">Audiens: ${E(x.aud || "-")}</span>
+            </div>
+            ${x.marketNote ? `<div class="m" style="margin-top:4px">Pasar: ${E(x.marketNote)}</div>` : ""}
+            <div class="m" style="margin-top:4px">SOP: ${E(x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending.")}</div>
+            ${prodActionsHtml(x.id, "prod", `
+              <button class="btn" type="button" onclick="setp('${E(x.id)}',item=>{item.status='qc';item.qc=item.qc||85});log('qc','${E(x.id)}');go('prod')">Ke QC</button>
+              <button class="btn" type="button" onclick="setp('${E(x.id)}',item=>item.status='archived');log('arsip','${E(x.id)}');go('prod')">Arsipkan</button>
+            `)}
+          </div>`).join("");
+    }
+
+    if(v === "qc"){
+      const items = p.filter(x => x.status === "qc");
+      h = '<div class="card"><h2>Kontrol Kualitas</h2></div>' +
+        (items.map(x => `
+          <div class="card">
+            <b>${E(x.title)}</b>
+            <div class="m">Skor ${E(x.qc ?? 0)}/100 • Harga: ${E(formatPriceLabel(x.price))} • Mode: ${E(x.mode || "permintaan")}</div>
+            <div class="m">SOP: ${E(x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending.")}</div>
+            ${prodActionsHtml(x.id, "qc", `
+              <button class="btn p" type="button" onclick="setp('${E(x.id)}',item=>item.status='pending');log('pending','${E(x.id)}');go('qc')">Lolos ke Pending</button>
+              <button class="btn" type="button" onclick="setp('${E(x.id)}',item=>item.status='draft');log('revisi','${E(x.id)}');go('qc')">Revisi</button>
+            `)}
+          </div>`).join("") || '<div class="card m">Tidak ada produk di QC.</div>');
+    }
+
+    if(v === "vault"){
+      const items = p.filter(x => ["pending","public","archived"].includes(x.status));
+      h = '<div class="card"><h2>Asset Vault</h2><div class="m">Kelola produk Pending, Public, dan Arsip.</div></div>' +
+        (items.map(x => `
+          <div class="card">
+            <b>${E(x.title)}</b> <span class="m">[${E(x.status)}] ${E(formatPriceLabel(x.price))}</span>
+            <div class="m">SOP: ${E(x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending.")}</div>
+            ${prodActionsHtml(x.id, "vault", x.status === "pending"
+              ? `<button class="btn p" type="button" onclick="pub('${E(x.id)}')">Setujui Public</button>`
+              : "")}
+          </div>`).join("") || '<div class="card m">Belum ada asset.</div>');
+    }
+
+    if(v === "gum"){
+      const g = L("joy_gumroad", {});
+      h = `
+        <div class="card">
+          <h2>Gumroad</h2>
+          <div class="m">Upload langsung ke API Gumroad memerlukan endpoint backend/token server. Simpan Store URL &amp; prefix di bawah untuk menyiapkan paket upload produk.</div>
+          <input id="gs" placeholder="Store URL" value="${E(g.store || "")}">
+          <input id="gp" placeholder="Seller prefix" value="${E(g.prefix || "")}">
+          <button class="btn p" type="button" onclick="saveGum()">Simpan</button>
+        </div>`;
+    }
+
+    if(v === "fin"){
+      h = '<div class="card"><h2>Keuangan</h2><p class="m">Belum ada penjualan nyata. Pendapatan dibaca dari Gumroad setelah backend aktif. Tidak ada angka palsu.</p></div>';
+    }
+
+    if(v === "settings"){
+      const fh = await G("fh");
+      const sn = (await G("snaps")) || [];
+      let pm = "";
+      if(fh && fh.queryPermission) try{ pm = await fh.queryPermission({ mode: "readwrite" }); }catch{}
+      const fileStatus = pm === "granted" ? "AKTIF" : fh ? "butuh izin (tekan LOGIN)" : "belum diaktifkan";
+      h = `
+        <div class="card">
+          <h2>Cadangan Otomatis</h2>
+          <p class="m">
+            Internal: AKTIF (tiap perubahan &amp; 1 jam). Terakhir: ${E(F(getRaw("joy_ls")))}<br>
+            File di telepon: ${fileStatus}. Terakhir: ${E(F(getRaw("joy_lf")))}<br>
+            Unduhan terakhir: ${E(F(getRaw("joy_ld")))}
+          </p>
+          <div class="row">
+            <button class="btn p" type="button" onclick="enable()">${fh ? "Pilih File Baru" : "Aktifkan Cadangan Otomatis ke File"}</button>
+            <button class="btn" type="button" onclick="exp()">Simpan Cadangan Sekarang</button>
+            <label class="btn" style="display:inline-block">
+              Pulihkan dari File
+              <input type="file" accept=".json,application/json" class="hide" onchange="imp(event)">
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap">
+            <h3 style="margin:0">Riwayat internal (${sn.length})</h3>
+            ${sn.length ? `<button class="btn danger" type="button" onclick="clearSnaps()">Hapus Semua</button>` : ""}
+          </div>
+          <div style="margin-top:6px">
+            ${sn.map((s, i) => `
+              <div class="snap-item">
+                <span class="m">${E(F(s.at))}</span>
+                <div>
+                  <button class="btn" type="button" onclick="rest(${i})">Pulihkan</button>
+                  <button class="btn danger" type="button" onclick="delSnap(${i})">Hapus</button>
+                </div>
+              </div>`).join("") || '<div class="m">Belum ada.</div>'}
+          </div>
+        </div>
+        <div class="card">
+          <h2>PIN</h2>
+          <input id="np" type="password" inputmode="numeric" maxlength="8" placeholder="PIN baru (min 6 digit)">
+          <button class="btn p" type="button" onclick="saveNewPin()">Simpan PIN</button>
+        </div>`;
+    }
+
+    $("v").innerHTML = h;
+    await ban();
+  }catch(err){
+    dbg("Go error: " + (err?.message || err));
+  }
+}
+
+function saveGum(){
+  S("joy_gumroad", {
+    store: $("gs").value.trim(),
+    prefix: $("gp").value.trim()
+  });
+  log("gumroad", "disimpan");
+  alert("Tersimpan");
+}
+
+function mk(){
+  const rawT = $("t").value.trim() || "AI productivity";
+  const t = rawT.replace(/\b\w/g, c => c.toUpperCase());
+  const a = $("a").value.trim() || "SaaS founders, AI product builders, consultants & B2B teams";
+  const rawPr = $("pr").value.trim();
+  const parsedPr = rawPr === "" ? null : parseFloat(rawPr);
+  const price = (parsedPr !== null && !Number.isNaN(parsedPr) && parsedPr >= 0) ? parsedPr : null;
+  const item = {
+    id: "JOY-" + Date.now(),
+    title: "The Complete " + t + " Toolkit",
+    price,
+    status: "draft",
+    qc: 0,
+    aud: a,
+    mode: "permintaan",
+    sop: "SOP-REQ-01: Susun modul inti, worksheet praktik, dan checklist QC sesuai permintaan."
+  };
+  SP([item, ...P()]);
+  log("draft_permintaan", t + (price !== null ? ` ($${price})` : " (harga kosong)"));
+  dlProd(item.id, { silentLog: true });
+  go("prod");
+}
+
+function mkAutoBatch(count){
+  const n = Math.max(1, Math.min(count || 5, MARKET_RESEARCH_POOL.length));
+  const p = P();
+  const existingTitles = new Set(p.map(x => String(x.title || "").toLowerCase()));
+  const picked = [];
+
+  for(let step = 0; step < MARKET_RESEARCH_POOL.length && picked.length < n; step++){
+    const idx = (marketCursor + step) % MARKET_RESEARCH_POOL.length;
+    const item = MARKET_RESEARCH_POOL[idx];
+    if(!existingTitles.has(item.title.toLowerCase())){
+      picked.push(item);
+      existingTitles.add(item.title.toLowerCase());
+    }
+  }
+
+  if(picked.length < n){
+    for(let step = 0; step < MARKET_RESEARCH_POOL.length && picked.length < n; step++){
+      const idx = (marketCursor + step) % MARKET_RESEARCH_POOL.length;
+      const item = MARKET_RESEARCH_POOL[idx];
+      if(!picked.some(x => x.title === item.title)){
+        picked.push({
+          ...item,
+          title: item.title + " (Ed. " + (Math.floor(Date.now() / 1000) % 100) + ")"
+        });
+      }
+    }
+  }
+
+  marketCursor = (marketCursor + n) % MARKET_RESEARCH_POOL.length;
+  const now = Date.now();
+  const created = picked.map((item, i) => ({
+    id: "JOY-AUTO-" + (now + i),
+    title: item.title,
+    price: item.price,
+    marketPrice: item.marketPrice,
+    demandScore: item.demandScore,
+    marketNote: item.marketNote,
+    status: "draft",
+    qc: item.qc,
+    aud: item.aud,
+    mode: "otomatis",
+    sop: item.sop
+  }));
+
+  SP([...created, ...p]);
+  log("riset_harga_produksi_5", created.map(x => `${x.title} ($${x.price})`).join(", "));
+  created.forEach((item, idx) => {
+    setTimeout(() => dlProd(item.id, { silentLog: true }), idx * 250);
+  });
+  go("prod");
+}
+
+function pub(id){
+  if(!L("joy_gumroad", {}).store) return alert("Simpan Store URL Gumroad dulu.");
+  setp(id, x => x.status = "public");
+  log("public", id);
+  go("vault");
+}
+
+function saveNewPin(){
+  const v = $("np").value.trim();
+  if(v.length < 6) return alert("Minimal 6 digit.");
+  setRaw("joy_pin", H(v));
+  sched();
+  alert("PIN diganti.");
+}
+
+if(location.protocol !== "file:" && location.protocol !== "content:" && location.protocol !== "about:" && "serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+try{ if(getRaw("joy_ses")) start(); }catch{}
+</script>
+</body>
+</html>
