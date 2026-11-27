@@ -38,6 +38,10 @@ h3{margin:14px 0 6px;color:#e2e8f0;font-size:15px}
 .snap-item:last-child{border-bottom:0}
 .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:#10203A;border:1px solid #1B2E4B;color:#cbd5e1}
 .status-banner{background:#0f2438;border:1px solid #2E9E6B;color:#d1fae5;border-radius:12px;padding:10px 12px;margin-top:10px;font-size:12px;line-height:1.45}
+.chat-box{background:#060E1A;border:1px solid #1B2E4B;border-radius:14px;padding:12px;max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.msg{max-width:88%;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.msg.user{align-self:flex-end;background:#0F2A43;border:1px solid #2E9E6B;color:#fff}
+.msg.bot{align-self:flex-start;background:#10203A;border:1px solid #1B2E4B;color:#e2e8f0}
 #modal{position:fixed;inset:0;z-index:1000;background:rgba(4,9,17,.85);display:none;place-items:center;padding:16px;overflow-y:auto}
 .mbox{width:min(94vw,700px);max-height:86vh;overflow-y:auto;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:18px}
 pre.gumcopy{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-word;font-size:12px;color:#cbd5e1;line-height:1.5;margin:8px 0}
@@ -80,8 +84,8 @@ pre.gumcopy{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;paddi
 <script>
 const LOGO = "data:image/png;base64,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";
 const BASE_PIN = "444033";
-const BK = ["joy_pin","joy_products","joy_log","joy_gumroad"];
-const N = [["dash","Dashboard"],["about","Tentang"],["prod","Pabrik"],["qc","QC"],["vault","Asset Vault"],["gum","Gumroad"],["fin","Keuangan"],["settings","Pengaturan"]];
+const BK = ["joy_pin","joy_products","joy_log","joy_gumroad","joy_chat","joy_ai_cfg"];
+const N = [["dash","Dashboard"],["about","Tentang"],["prod","Pabrik"],["qc","QC"],["vault","Asset Vault"],["gum","Gumroad"],["fin","Keuangan"],["chat","Asisten"],["settings","Pengaturan"]];
 const MEM = {};
 
 let dlBannerMsg = "";
@@ -105,154 +109,224 @@ function makeMarketPrice(basePrice, cut){
   return Number.isInteger(raw) ? raw : Number(raw.toFixed(2));
 }
 
-const MARKET_RESEARCH_POOL = [
+const DYNAMIC_DOMAINS = [
   {
     niche: "SaaS Value Pricing & Packaging",
-    title: "The Complete Pricing Strategy Toolkit",
-    subtitle: "How to Price SaaS, AI & Enterprise Solutions with Confidence",
-    aud: "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams",
+    basePrice: 79,
+    cut: 2,
     demandScore: 95,
-    marketPrice: 79,
-    price: makeMarketPrice(79, 2),
-    qc: 92,
-    marketNote: "Pasaran ~$79, dipatok $77 (-$2) agar lebih menarik bagi founder & tim B2B.",
-    sop: "SOP-PRC-01: Audit cost-to-serve, hitung MVP price, susun pricing ladder & matriks diskon sebelum QC."
+    aud: "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams",
+    sopCode: "SOP-PRC"
   },
   {
     niche: "AI Workflow Automation",
-    title: "The Complete AI Workflow Automation Toolkit",
-    subtitle: "How to Price & Package AI Automation Workflows with Confidence",
-    aud: "AI product builders, SaaS founders, operations leads, consultants, B2B teams",
+    basePrice: 99,
+    cut: 2,
     demandScore: 94,
-    marketPrice: 99,
-    price: makeMarketPrice(99, 2),
-    qc: 91,
-    marketNote: "Pasaran ~$99, dipatok $97 (-$2) untuk paket monetisasi & SOP alur kerja AI.",
-    sop: "SOP-AI-02: Petakan nilai efisiensi waktu, hitung biaya operasional, lalu uji skema paket."
+    aud: "AI product builders, SaaS founders, operations leads, consultants, B2B teams",
+    sopCode: "SOP-AI"
   },
   {
     niche: "ESG Reporting Compliance",
-    title: "The Complete ESG Reporting Compliance Toolkit",
-    subtitle: "How to Structure, Price & Deliver ESG Advisory & Reporting Systems",
-    aud: "Consultants, sustainability leads, product managers, mid-market & enterprise B2B teams",
+    basePrice: 149,
+    cut: 2,
     demandScore: 89,
-    marketPrice: 149,
-    price: makeMarketPrice(149, 2),
-    qc: 90,
-    marketNote: "Pasaran ~$149, dipatok $147 (-$2) untuk paket struktur pelaporan & penawaran ESG.",
-    sop: "SOP-ESG-03: Standarkan kerangka pelaporan, tetapkan batas cakupan paket, dan siapkan ROI tracker."
+    aud: "Consultants, sustainability leads, product managers, mid-market & enterprise B2B teams",
+    sopCode: "SOP-ESG"
   },
   {
     niche: "Predictive Maintenance Operations",
-    title: "The Complete Predictive Maintenance Operations Toolkit",
-    subtitle: "How to Price & Roll Out Predictive Maintenance Playbooks for B2B",
-    aud: "B2B solution builders, operations consultants, product managers, industrial & SaaS teams",
+    basePrice: 199,
+    cut: 2,
     demandScore: 90,
-    marketPrice: 199,
-    price: makeMarketPrice(199, 2),
-    qc: 91,
-    marketNote: "Pasaran ~$199, dipatok $197 (-$2) untuk kerangka nilai pencegahan downtime & paid pilot.",
-    sop: "SOP-PM-04: Hitung dampak biaya gangguan operasional, susun paid pilot, dan pantau ROI aktual."
+    aud: "B2B solution builders, operations consultants, product managers, industrial & SaaS teams",
+    sopCode: "SOP-PM"
   },
   {
     niche: "Secure Enterprise Collaboration",
-    title: "The Complete Secure Enterprise Collaboration Toolkit",
-    subtitle: "How to Price & Position Secure Collaboration Solutions for B2B Teams",
-    aud: "SaaS founders, B2B teams, product managers, security-minded builders, consultants",
+    basePrice: 59,
+    cut: 1,
     demandScore: 88,
-    marketPrice: 59,
-    price: makeMarketPrice(59, 1),
-    qc: 89,
-    marketNote: "Pasaran ~$59, dipatok $58 (-$1) agar kompetitif di pasar tim kolaborasi aman.",
-    sop: "SOP-SEC-05: Petakan kebutuhan keamanan tim, susun tier akses & paket, lalu jalankan checklist rilis."
+    aud: "SaaS founders, B2B teams, product managers, security-minded builders, consultants",
+    sopCode: "SOP-SEC"
   },
   {
     niche: "Revenue Operations & Deal Desk",
-    title: "The Complete Revenue Operations & Deal Desk Toolkit",
-    subtitle: "How to Standardize Quotes, Approvals & Expansion Pricing for B2B",
-    aud: "RevOps leads, SaaS founders, sales ops managers, B2B teams",
+    basePrice: 129,
+    cut: 2,
     demandScore: 91,
-    marketPrice: 129,
-    price: makeMarketPrice(129, 2),
-    qc: 90,
-    marketNote: "Pasaran ~$129, dipatok $127 (-$2) untuk mempercepat alur persetujuan harga & paket.",
-    sop: "SOP-REV-06: Rapikan aturan persetujuan penawaran, paket ekspansi, dan pelacakan margin."
+    aud: "RevOps leads, SaaS founders, sales ops managers, B2B teams",
+    sopCode: "SOP-REV"
   },
   {
     niche: "Cloud FinOps & Unit Economics",
-    title: "The Complete Cloud FinOps & Unit Economics Toolkit",
-    subtitle: "How to Track Infrastructure Cost & Protect Gross Margin in B2B",
-    aud: "Product managers, engineering leads, SaaS founders, finance teams",
+    basePrice: 119,
+    cut: 2,
     demandScore: 88,
-    marketPrice: 119,
-    price: makeMarketPrice(119, 2),
-    qc: 89,
-    marketNote: "Pasaran ~$119, dipatok $117 (-$2) untuk pemetaan biaya beban sistem & batas margin.",
-    sop: "SOP-FIN-07: Ukur biaya per akun/pengguna, tetapkan batas minimum harga, dan pantau tren mingguan."
+    aud: "Product managers, engineering leads, SaaS founders, finance teams",
+    sopCode: "SOP-FIN"
   },
   {
     niche: "B2B Onboarding & Activation",
-    title: "The Complete B2B Onboarding & Activation Toolkit",
-    subtitle: "How to Structure Fast Time-to-Value & Reduce Early Churn",
-    aud: "Customer success leads, product managers, SaaS founders, consultants",
+    basePrice: 69,
+    cut: 1,
     demandScore: 87,
-    marketPrice: 69,
-    price: makeMarketPrice(69, 1),
-    qc: 88,
-    marketNote: "Pasaran ~$69, dipatok $68 (-$1) untuk mempercepat aktivasi pengguna baru.",
-    sop: "SOP-ONB-08: Tetapkan milestone aktivasi awal, checklist serah terima, dan evaluasi retensi."
+    aud: "Customer success leads, product managers, SaaS founders, consultants",
+    sopCode: "SOP-ONB"
   },
   {
     niche: "API & Usage-Based Monetization",
-    title: "The Complete API & Usage-Based Pricing Toolkit",
-    subtitle: "How to Design Predictable Usage Tiers & Overages for Builders",
-    aud: "API builders, SaaS founders, technical product managers, B2B teams",
+    basePrice: 89,
+    cut: 2,
     demandScore: 92,
-    marketPrice: 89,
-    price: makeMarketPrice(89, 2),
-    qc: 90,
-    marketNote: "Pasaran ~$89, dipatok $87 (-$2) untuk merancang paket berbasis pemakaian yang jelas.",
-    sop: "SOP-API-09: Pilih satuan pemakaian utama, susun batas kuota tiap tier, dan siapkan simulasi tagihan."
+    aud: "API builders, SaaS founders, technical product managers, B2B teams",
+    sopCode: "SOP-API"
   },
   {
     niche: "B2B Advisory & Retainer Packaging",
-    title: "The Complete B2B Advisory & Retainer Toolkit",
-    subtitle: "How to Package High-Clarity retainers, Audits & Scoped Sprints",
-    aud: "Consultants, freelancers, fractional leaders, B2B service teams",
+    basePrice: 79,
+    cut: 2,
     demandScore: 90,
-    marketPrice: 79,
-    price: makeMarketPrice(79, 2),
-    qc: 89,
-    marketNote: "Pasaran ~$79, dipatok $77 (-$2) untuk mengubah jasa jam-jaman menjadi paket terukur.",
-    sop: "SOP-ADV-10: Batasi ruang lingkup sprint/retainer, tentukan jadwal review, dan cegah scope creep."
+    aud: "Consultants, freelancers, fractional leaders, B2B service teams",
+    sopCode: "SOP-ADV"
   },
   {
     niche: "Enterprise Security Readiness",
-    title: "The Complete Enterprise Security Readiness Toolkit",
-    subtitle: "How to Prepare Security Checklists, Reviews & Enterprise Rollouts",
-    aud: "B2B teams, product managers, security leads, SaaS founders",
+    basePrice: 159,
+    cut: 2,
     demandScore: 86,
-    marketPrice: 159,
-    price: makeMarketPrice(159, 2),
-    qc: 88,
-    marketNote: "Pasaran ~$159, dipatok $157 (-$2) untuk merapikan kesiapan tinjauan keamanan tim.",
-    sop: "SOP-SR-11: Susun daftar periksa kesiapan, tanggung jawab tim, dan alur tindak lanjut tinjauan."
+    aud: "B2B teams, product managers, security leads, SaaS founders",
+    sopCode: "SOP-SR"
   },
   {
     niche: "Product Discovery & Validation",
-    title: "The Complete Product Discovery & Validation Toolkit",
-    subtitle: "How to Run Buyer Interviews, Price Tests & Offer Validation",
-    aud: "Product managers, founders, builders, consultants, B2B teams",
+    basePrice: 49,
+    cut: 1,
     demandScore: 89,
-    marketPrice: 49,
-    price: makeMarketPrice(49, 1),
-    qc: 88,
-    marketNote: "Pasaran ~$49, dipatok $48 (-$1) untuk validasi masalah & minat beli sebelum rilis besar.",
-    sop: "SOP-VAL-12: Jalankan wawancara terstruktur, uji respon harga, dan putuskan langkah iterasi."
+    aud: "Product managers, founders, builders, consultants, B2B teams",
+    sopCode: "SOP-VAL"
   }
 ];
 
-let marketCursor = 0;
+const DYNAMIC_ANGLES = [
+  {
+    focus: "Tiered Packaging & Margin Protection",
+    subtitle: "How to Structure Tiers, Protect Margins & Price with Confidence",
+    priceDelta: 0
+  },
+  {
+    focus: "Paid Pilot & ROI Validation",
+    subtitle: "How to Scope Paid Pilots, Track ROI & Convert Trials into Deals",
+    priceDelta: 10
+  },
+  {
+    focus: "Cost-to-Serve & Unit Economics",
+    subtitle: "How to Model Delivery Costs, Set Price Floors & Scale Safely",
+    priceDelta: 5
+  },
+  {
+    focus: "Deal Desk, Bundles & Discount Rules",
+    subtitle: "How to Package Bundles, Control Discounts & Close Faster",
+    priceDelta: -5
+  },
+  {
+    focus: "Launch Playbook & Buyer Conversion",
+    subtitle: "How to Position, Pitch & Roll Out High-Clarity B2B Offers",
+    priceDelta: 0
+  },
+  {
+    focus: "Expansion & Renewal Monetization",
+    subtitle: "How to Grow Account Value, Upgrades & Long-Term Retention",
+    priceDelta: 15
+  },
+  {
+    focus: "Onboarding & Fast Time-to-Value",
+    subtitle: "How to Streamline Setup, Cut Friction & Prove Value Early",
+    priceDelta: -10
+  },
+  {
+    focus: "Governance & Risk-Controlled Rollout",
+    subtitle: "How to Standardize SOPs, Approvals & Team Execution",
+    priceDelta: 10
+  }
+];
+
+const DYNAMIC_FORMATS = [
+  { suffix: "Toolkit", label: "40+ Page Toolkit" },
+  { suffix: "Playbook", label: "Execution Playbook" },
+  { suffix: "Pricing & Packaging Kit", label: "Pricing & Packaging Kit" },
+  { suffix: "SOP & Rollout System", label: "SOP & Rollout System" },
+  { suffix: "Monetization Blueprint", label: "Monetization Blueprint" }
+];
+
+function generateDynamicResearchBatch(count, existingProducts){
+  const n = Math.max(1, Math.min(count || 5, 10));
+  const usedTitles = new Set((existingProducts || []).map(x => String(x.title || "").trim().toLowerCase()));
+  const batchSeed = Date.now() + Math.floor(Math.random() * 10000);
+  const picked = [];
+  const maxAttempts = DYNAMIC_DOMAINS.length * DYNAMIC_ANGLES.length * DYNAMIC_FORMATS.length;
+
+  for(let attempt = 0; attempt < maxAttempts && picked.length < n; attempt++){
+    const dIdx = (batchSeed + attempt * 7) % DYNAMIC_DOMAINS.length;
+    const aIdx = Math.floor((batchSeed + attempt * 13) / DYNAMIC_DOMAINS.length) % DYNAMIC_ANGLES.length;
+    const fIdx = Math.floor((batchSeed + attempt * 19) / (DYNAMIC_DOMAINS.length * DYNAMIC_ANGLES.length)) % DYNAMIC_FORMATS.length;
+
+    const dom = DYNAMIC_DOMAINS[dIdx];
+    const ang = DYNAMIC_ANGLES[aIdx];
+    const fmt = DYNAMIC_FORMATS[fIdx];
+
+    const coreTopic = `${dom.niche} - ${ang.focus}`;
+    const title = `The Complete ${coreTopic} ${fmt.suffix}`;
+    const normTitle = title.toLowerCase();
+
+    if(usedTitles.has(normTitle)) continue;
+    usedTitles.add(normTitle);
+
+    const marketPrice = Math.max(19, Math.min(990, dom.basePrice + ang.priceDelta + ((attempt % 3) - 1) * 5));
+    const price = makeMarketPrice(marketPrice, dom.cut);
+    const demandScore = Math.max(82, Math.min(98, dom.demandScore - ((dIdx + aIdx) % 4)));
+    const qc = Math.max(86, Math.min(96, 89 + ((attempt + dIdx) % 6)));
+
+    picked.push({
+      niche: coreTopic,
+      title,
+      subtitle: ang.subtitle,
+      aud: dom.aud,
+      demandScore,
+      marketPrice,
+      price,
+      qc,
+      marketNote: `Riset dinamis (${fmt.label}): patokan pasar ~$${marketPrice}, dipatok $${price} (-$${dom.cut}) untuk fokus ${ang.focus.toLowerCase()}.`,
+      sop: `${dom.sopCode}-${String(((dIdx + aIdx + fIdx) % 89) + 10)}: Audit biaya & nilai ${ang.focus.toLowerCase()}, terapkan struktur ${fmt.label}, lalu verifikasi QC.`
+    });
+  }
+
+  while(picked.length < n){
+    const idx = (batchSeed + picked.length) % DYNAMIC_DOMAINS.length;
+    const dom = DYNAMIC_DOMAINS[idx];
+    const ang = DYNAMIC_ANGLES[(batchSeed + picked.length * 3) % DYNAMIC_ANGLES.length];
+    const fmt = DYNAMIC_FORMATS[(batchSeed + picked.length * 5) % DYNAMIC_FORMATS.length];
+    const suffixNum = (batchSeed % 900) + 100 + picked.length;
+    const title = `The Complete ${dom.niche} ${fmt.suffix} #${suffixNum}`;
+    const marketPrice = Math.max(19, Math.min(990, dom.basePrice + ang.priceDelta));
+    const price = makeMarketPrice(marketPrice, dom.cut);
+
+    picked.push({
+      niche: `${dom.niche} - ${ang.focus}`,
+      title,
+      subtitle: ang.subtitle,
+      aud: dom.aud,
+      demandScore: dom.demandScore,
+      marketPrice,
+      price,
+      qc: 90,
+      marketNote: `Riset dinamis (#${suffixNum}): patokan pasar ~$${marketPrice}, dipatok $${price} (-$${dom.cut}).`,
+      sop: `${dom.sopCode}-DYN: Susun struktur ${fmt.label}, hitung batas margin, dan selesaikan QC sebelum rilis.`
+    });
+  }
+
+  return picked;
+}
 
 const $ = id => document.getElementById(id);
 const E = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
@@ -1344,6 +1418,123 @@ function prodActionsHtml(id, returnView, extraHtml){
     </div>`;
 }
 
+function localAssistantReply(promptText){
+  const q = String(promptText || "").trim();
+  const ql = q.toLowerCase();
+  const prods = P();
+
+  if(/riset|ide|topik|niche|baru|variasi/.test(ql)){
+    const sample = generateDynamicResearchBatch(3, prods);
+    return [
+      "Saran topik riset baru untuk JOY CORPORATION:",
+      ...sample.map((s, i) => `${i + 1}. ${s.title} — patokan ~$${s.marketPrice}, saran harga $${s.price}`),
+      "Kamu juga bisa langsung tekan tombol 'Riset Market & Produksi 5 Produk Otomatis' di tab Pabrik."
+    ].join("\n");
+  }
+
+  if(/harga|pricing|tier|mvp|margin|diskon/.test(ql)){
+    return [
+      "Ringkasan kerangka harga & margin:",
+      "- Hitung Cost-to-Serve (biaya langsung + dukungan/setup + tooling).",
+      "- Gunakan rumus batas bawah: MVP Price = Cost-to-Serve / (1 - Target Margin).",
+      "- Pisahkan tier Starter, Professional, dan Enterprise berdasarkan cakupan serta aturan diskon yang jelas."
+    ].join("\n");
+  }
+
+  if(/status|produk|qc|vault|keuangan|penjualan/.test(ql)){
+    const draftQc = prods.filter(x => ["draft","qc"].includes(x.status)).length;
+    const pending = prods.filter(x => x.status === "pending").length;
+    const pubCount = prods.filter(x => x.status === "public").length;
+    return [
+      `Ringkasan produk saat ini: Total ${prods.length} produk (Draft/QC: ${draftQc}, Pending: ${pending}, Public: ${pubCount}).`,
+      "Catatan keuangan: belum ada data penjualan nyata yang tercatat di sistem."
+    ].join("\n");
+  }
+
+  return [
+    `Siap bantu untuk "${q || "operasional JOY CORPORATION"}".`,
+    "Saya bisa membantu menyusun sudut pandang produk, struktur harga/tier, checklist QC, atau menyarankan topik riset baru.",
+    "Jika ingin jawaban model AI langsung, isi API Key & Model Gemini di pengaturan Asisten di atas."
+  ].join("\n");
+}
+
+async function askAssistant(presetPrompt){
+  const inp = $("chatInput");
+  const text = (presetPrompt !== undefined ? String(presetPrompt) : (inp?.value || "")).trim();
+  if(!text) return;
+
+  const history = L("joy_chat", []);
+  history.push({ role: "user", text, at: new Date().toISOString() });
+  S("joy_chat", history.slice(-60));
+  if(inp && presetPrompt === undefined) inp.value = "";
+  renderChatMessages();
+
+  const cfg = L("joy_ai_cfg", { apiKey: "", model: "gemini-3.1-flash-lite" });
+  let reply = "";
+
+  if(cfg.apiKey && cfg.apiKey.trim()){
+    try{
+      const modelName = (cfg.model || "gemini-3.1-flash-lite").trim();
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelName)}:generateContent?key=${encodeURIComponent(cfg.apiKey.trim())}`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: "Kamu adalah asisten kerja untuk Ade Kurnia Sandy di JOY CORPORATION. Jawab ringkas, praktis, berbahasa Indonesia natural, dan jangan mengarang angka penjualan atau keuangan yang belum ada." }]
+          },
+          contents: history.slice(-10).map(m => ({
+            role: m.role === "user" ? "user" : "model",
+            parts: [{ text: m.text }]
+          }))
+        })
+      });
+      const data = await res.json();
+      reply = data?.candidates?.[0]?.content?.parts?.map(p => p.text).filter(Boolean).join("\n") || "";
+    }catch{}
+  }
+
+  if(!reply){
+    reply = localAssistantReply(text);
+  }
+
+  const updated = L("joy_chat", []);
+  updated.push({ role: "bot", text: reply, at: new Date().toISOString() });
+  S("joy_chat", updated.slice(-60));
+  sched();
+  renderChatMessages();
+}
+
+function renderChatMessages(){
+  const box = $("chatBox");
+  if(!box) return;
+  const msgs = L("joy_chat", []);
+  if(!msgs.length){
+    box.innerHTML = '<div class="m">Mulai percakapan di bawah: minta ide riset baru, struktur harga/tier, atau ringkasan produk.</div>';
+    return;
+  }
+  box.innerHTML = msgs.map(m => `
+    <div class="msg ${m.role === "user" ? "user" : "bot"}">${E(m.text)}</div>
+  `).join("");
+  box.scrollTop = box.scrollHeight;
+}
+
+function saveAiCfg(){
+  S("joy_ai_cfg", {
+    apiKey: ($("aiKey")?.value || "").trim(),
+    model: ($("aiModel")?.value || "gemini-3.1-flash-lite").trim() || "gemini-3.1-flash-lite"
+  });
+  sched();
+  alert("Pengaturan Asisten disimpan.");
+}
+
+function clearChat(){
+  if(!confirm("Hapus riwayat chat asisten?")) return;
+  S("joy_chat", []);
+  sched();
+  renderChatMessages();
+}
+
 function renderNav(active){
   $("nav").innerHTML =
     N.map(([k,n]) => `<button class="btn ${k===active?"active":""}" type="button" onclick="go('${k}')">${E(n)}</button>`).join("") +
@@ -1418,8 +1609,8 @@ async function go(v){
           <div id="dlBanner" class="status-banner ${dlBannerMsg ? "" : "hide"}">${E(dlBannerMsg)}</div>
         </div>
         <div class="card">
-          <h2>Pabrik Produk — Mode Otomatis (Riset Market &amp; Harga -$1/-$2)</h2>
-          <div class="m">Meriset 5 topik berbeda dengan patokan pasar yang dikurangi -$1/-$2, lalu memproduksi draf PDF lengkap dengan studi kasus &amp; angka dinamis sesuai topik.</div>
+          <h2>Pabrik Produk — Mode Otomatis (Generator Riset Dinamis &amp; Harga -$1/-$2)</h2>
+          <div class="m">Meriset kombinasi topik, fokus, dan format produk secara dinamis dengan patokan pasar yang dikurangi -$1/-$2, lalu memproduksi draf PDF lengkap sesuai topik.</div>
           <div class="row">
             <button class="btn g" type="button" onclick="mkAutoBatch(5)">Riset Market &amp; Produksi 5 Produk Otomatis</button>
           </div>
@@ -1485,6 +1676,32 @@ async function go(v){
       h = '<div class="card"><h2>Keuangan</h2><p class="m">Belum ada penjualan nyata. Pendapatan dibaca dari Gumroad setelah backend aktif. Tidak ada angka palsu.</p></div>';
     }
 
+    if(v === "chat"){
+      const cfg = L("joy_ai_cfg", { apiKey: "", model: "gemini-3.1-flash-lite" });
+      h = `
+        <div class="card">
+          <h2>Asisten JOY</h2>
+          <div class="m">Diskusi cepat untuk ide riset produk, struktur tier &amp; harga, SOP, serta status antrean. Opsional: isi Gemini API Key &amp; model bila ingin terhubung langsung ke model AI.</div>
+          <div class="row">
+            <button class="btn" type="button" onclick="askAssistant('Beri 3 saran topik riset baru')">Ide Riset Baru</button>
+            <button class="btn" type="button" onclick="askAssistant('Bantu susun struktur harga dan tier')">Struktur Harga</button>
+            <button class="btn" type="button" onclick="askAssistant('Cek ringkasan produk saat ini')">Cek Produk</button>
+            <button class="btn danger" type="button" onclick="clearChat()">Hapus Chat</button>
+          </div>
+          <div id="chatBox" class="chat-box"></div>
+          <div class="row" style="margin-top:10px">
+            <input id="chatInput" placeholder="Tulis pesan untuk asisten..." onkeydown="if(event.key==='Enter')askAssistant()" style="margin:0;flex:1;min-width:180px">
+            <button class="btn p" type="button" onclick="askAssistant()">Kirim</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Koneksi Model (Opsional)</h3>
+          <input id="aiModel" placeholder="Model (misal: gemini-3.1-flash-lite)" value="${E(cfg.model || "gemini-3.1-flash-lite")}">
+          <input id="aiKey" type="password" placeholder="Gemini API Key (kosongkan untuk mode asisten lokal)" value="${E(cfg.apiKey || "")}">
+          <button class="btn" type="button" onclick="saveAiCfg()">Simpan Pengaturan Asisten</button>
+        </div>`;
+    }
+
     if(v === "settings"){
       const fh = await G("fh");
       const sn = (await G("snaps")) || [];
@@ -1530,6 +1747,7 @@ async function go(v){
     }
 
     $("v").innerHTML = h;
+    if(v === "chat") renderChatMessages();
     await ban();
   }catch(err){
     dbg("Go error: " + (err?.message || err));
@@ -1572,35 +1790,11 @@ function mk(){
 }
 
 function mkAutoBatch(count){
-  const n = Math.max(1, Math.min(count || 5, MARKET_RESEARCH_POOL.length));
+  const n = Math.max(1, Math.min(count || 5, 10));
   const p = P();
-  const existingTitles = new Set(p.map(x => String(x.title || "").toLowerCase()));
-  const picked = [];
-
-  for(let step = 0; step < MARKET_RESEARCH_POOL.length && picked.length < n; step++){
-    const idx = (marketCursor + step) % MARKET_RESEARCH_POOL.length;
-    const item = MARKET_RESEARCH_POOL[idx];
-    if(!existingTitles.has(item.title.toLowerCase())){
-      picked.push(item);
-      existingTitles.add(item.title.toLowerCase());
-    }
-  }
-
-  if(picked.length < n){
-    for(let step = 0; step < MARKET_RESEARCH_POOL.length && picked.length < n; step++){
-      const idx = (marketCursor + step) % MARKET_RESEARCH_POOL.length;
-      const item = MARKET_RESEARCH_POOL[idx];
-      if(!picked.some(x => x.title === item.title)){
-        picked.push({
-          ...item,
-          title: item.title + " (Ed. " + (Math.floor(Date.now() / 1000) % 100) + ")"
-        });
-      }
-    }
-  }
-
-  marketCursor = (marketCursor + n) % MARKET_RESEARCH_POOL.length;
+  const picked = generateDynamicResearchBatch(n, p);
   const now = Date.now();
+
   const created = picked.map((item, i) => ({
     id: "JOY-AUTO-" + (now + i),
     title: item.title,
