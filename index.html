@@ -3,43 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0B1A30">
+<meta name="theme-color" content="#0F2A43">
 <title>JOY CORPORATION</title>
 <link rel="manifest" href="manifest.json">
 <style>
 *{box-sizing:border-box;box-shadow:none!important;text-shadow:none!important}
-body{margin:0;font-family:system-ui,sans-serif;background:#060E1A;color:#e2e8f0}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#060E1A;color:#e2e8f0}
 #login{position:fixed;inset:0;z-index:999;background:#060E1A;display:grid;place-items:center;padding:20px}
 .lbox{width:min(90vw,330px);text-align:center;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:24px}
 .limg{width:88px;height:88px;object-fit:contain;background:#fff;border-radius:16px;margin:0 auto;display:block}
 .lname{font-weight:800;color:#fff;margin-top:10px;letter-spacing:.5px}
 .ltag{color:#94a3b8;font-size:12px;font-style:italic;margin-top:3px}
 .linp{width:100%;margin-top:18px;background:#10203A;border:1px solid #1B2E4B;color:#e2e8f0;border-radius:12px;padding:12px;text-align:center;font-size:16px;letter-spacing:6px;outline:none}
-.linp:focus{border-color:#334155}
-.lbtn{width:100%;margin-top:10px;background:#00A2E8;color:#04121d;font-weight:800;border:0;border-radius:12px;padding:13px;font-size:14px;cursor:pointer}
+.linp:focus{border-color:#2E9E6B}
+.lbtn{width:100%;margin-top:10px;background:#0F2A43;color:#fff;font-weight:800;border:1px solid #2E9E6B;border-radius:12px;padding:13px;font-size:14px;cursor:pointer}
 .lforgot{display:block;margin-top:12px;background:none;border:0;color:#94a3b8;font-size:12px;cursor:pointer;margin-inline:auto}
 .card{background:#0b1526;border:1px solid #1B2E4B;border-radius:16px;padding:16px;margin:12px}
 .btn{background:#10203A;color:#e2e8f0;border:1px solid #1B2E4B;border-radius:10px;padding:8px 11px;font-size:12px;margin:2px;cursor:pointer;outline:none}
-.btn.active{border-color:#00A2E8;color:#fff}
+.btn.active{border-color:#2E9E6B;color:#fff}
 .btn.danger{background:#2a1215;border-color:#5c2329;color:#fca5a5}
-.p{background:#00A2E8;color:#04121d;font-weight:700;border-color:#00A2E8}
+.p{background:#0F2A43;color:#fff;font-weight:700;border-color:#2E9E6B}
 .g{background:#143326;color:#6ee7b7;font-weight:700;border-color:#2E9E6B}
 input,select,textarea{width:100%;background:#10203A;color:#e2e8f0;border:1px solid #1B2E4B;border-radius:10px;padding:10px;margin:5px 0;font-size:14px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:#334155}
+input:focus,select:focus,textarea:focus{border-color:#2E9E6B}
 nav{display:flex;overflow-x:auto;gap:6px;padding:8px;background:#070f1c;position:sticky;top:0;z-index:10;border-bottom:1px solid #1B2E4B}
 nav button{white-space:nowrap}
 h2{margin:0 0 8px;color:#fff}
 h3{margin:14px 0 6px;color:#e2e8f0;font-size:15px}
-.m{color:#94a3b8;font-size:13px}
+.m{color:#94a3b8;font-size:13px;line-height:1.45}
 .hide{display:none}
 .dimg{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:10px;display:inline-block}
 .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .snap-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #132238;flex-wrap:wrap}
 .snap-item:last-child{border-bottom:0}
 .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:#10203A;border:1px solid #1B2E4B;color:#cbd5e1}
+.resbox{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:10px;margin-top:8px;font-size:12px;color:#cbd5e1;line-height:1.45}
 #modal{position:fixed;inset:0;z-index:1000;background:rgba(4,9,17,.85);display:none;place-items:center;padding:16px;overflow-y:auto}
-.mbox{width:min(94vw,640px);max-height:86vh;overflow-y:auto;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:18px}
-pre.spec{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-word;font-size:12px;color:#cbd5e1;line-height:1.45;margin:8px 0}
+.mbox{width:min(94vw,700px);max-height:86vh;overflow-y:auto;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:18px}
+pre.gumcopy{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-word;font-size:12px;color:#cbd5e1;line-height:1.5;margin:8px 0}
+.art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.art-box{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:8px}
+.art-box img{width:100%;height:auto;border-radius:8px;display:block;border:1px solid #1B2E4B}
 </style>
 </head>
 <body>
@@ -81,98 +85,70 @@ const N = [["dash","Dashboard"],["about","Tentang"],["prod","Pabrik"],["qc","QC"
 const MEM = {};
 
 function makeMarketPrice(basePrice, cut){
-  const p = Math.max(5, Number(basePrice) - Number(cut));
-  return Number.isInteger(p) ? p : Number(p.toFixed(2));
+  const raw = Math.max(9.99, Math.min(1000, Number(basePrice) - Number(cut)));
+  return Number.isInteger(raw) ? raw : Number(raw.toFixed(2));
 }
 
 const MARKET_RESEARCH_POOL = [
   {
-    niche: "AI Workflow Automation",
-    title: "The Complete AI Workflow Automation Toolkit",
-    aud: "B2B SaaS Operations & RevOps Teams",
-    demandScore: 94,
+    niche: "SaaS Value Pricing & Packaging",
+    title: "The Complete Pricing Strategy Toolkit",
+    subtitle: "How to Price SaaS, AI & Enterprise Solutions with Confidence",
+    aud: "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams",
+    demandScore: 95,
     marketPrice: 79,
     price: makeMarketPrice(79, 2),
-    qc: 88,
-    marketNote: "Pasaran ~$79, dipatok $77 (-$2) agar lebih menarik bagi tim operasional B2B.",
-    sop: "SOP-AI-01: Audit tugas berulang, pasang quality gate sebelum rilis."
+    qc: 92,
+    marketNote: "Pasaran ~$79, dipatok $77 (-$2) agar lebih menarik bagi founder & tim B2B.",
+    sop: "SOP-PRC-01: Audit cost-to-serve, hitung MVP price, susun pricing ladder & matriks diskon sebelum QC."
   },
   {
-    niche: "B2B Value Pricing & Packaging",
-    title: "The Complete B2B Value Pricing & Packaging Toolkit",
-    aud: "SaaS Founders & Product Managers",
-    demandScore: 92,
-    marketPrice: 149,
-    price: makeMarketPrice(149, 2),
-    qc: 90,
-    marketNote: "Pasaran ~$149, dipatok $147 (-$2) untuk founder/PM yang ingin merapikan tier & margin.",
-    sop: "SOP-PRC-02: Hitung cost-to-serve & minimum viable price, tetapkan tier & matriks diskon."
-  },
-  {
-    niche: "Customer Onboarding & Retention",
-    title: "The Complete Customer Onboarding & Retention Toolkit",
-    aud: "Customer Success & Growth Leaders",
-    demandScore: 89,
-    marketPrice: 49,
-    price: makeMarketPrice(49, 1),
-    qc: 87,
-    marketNote: "Pasaran ~$49, dipatok $48 (-$1) untuk mempercepat aktivasi & menekan churn awal.",
-    sop: "SOP-CS-03: Petakan milestone aktivasi, pasang checklist onboarding, pantau retensi mingguan."
-  },
-  {
-    niche: "SOP Documentation & QA Systems",
-    title: "The Complete SOP Documentation & QA Systems Toolkit",
-    aud: "Operations Managers & Lean Agencies",
-    demandScore: 86,
-    marketPrice: 29.99,
-    price: makeMarketPrice(29.99, 2),
-    qc: 86,
-    marketNote: "Pasaran ~$29.99, dipatok $27.99 (-$2) untuk tim kecil/agensi yang butuh standar kerja cepat.",
-    sop: "SOP-QA-04: Standarkan format SOP, tetapkan PIC & SLA, validasi hasil lewat checklist QC."
-  },
-  {
-    niche: "Paid Pilot & Enterprise Deal Kit",
-    title: "The Complete Paid Pilot & Enterprise Deal Kit",
-    aud: "B2B Consultants & Enterprise Account Leads",
-    demandScore: 93,
-    marketPrice: 249,
-    price: makeMarketPrice(249, 2),
+    niche: "AI Workflow Automation",
+    title: "The Complete AI Workflow Automation Toolkit",
+    subtitle: "How to Price & Package AI Automation Workflows with Confidence",
+    aud: "AI product builders, SaaS founders, operations leads, consultants, B2B teams",
+    demandScore: 94,
+    marketPrice: 99,
+    price: makeMarketPrice(99, 2),
     qc: 91,
-    marketNote: "Pasaran ~$249, dipatok $247 (-$2) untuk mengubah pilot menjadi kesepakatan berbayar.",
-    sop: "SOP-PIL-05: Susun scope paid pilot, hitung ROI tracker, siapkan proposal & skrip keberatan."
+    marketNote: "Pasaran ~$99, dipatok $97 (-$2) untuk paket monetisasi & SOP alur kerja AI.",
+    sop: "SOP-AI-02: Petakan nilai efisiensi waktu, hitung biaya token/operasional, lalu uji skema paket."
   },
   {
     niche: "ESG Reporting Compliance",
     title: "The Complete ESG Reporting Compliance Toolkit",
-    aud: "Sustainability Leads & Mid-Market Finance Teams",
-    demandScore: 87,
-    marketPrice: 129,
-    price: makeMarketPrice(129, 2),
-    qc: 88,
-    marketNote: "Pasaran ~$129, dipatok $127 (-$2) untuk merapikan data pelaporan & jejak audit.",
-    sop: "SOP-ESG-06: Inventarisasi sumber data, susun checklist kelengkapan pelaporan, verifikasi akurasi."
+    subtitle: "How to Structure, Price & Deliver ESG Advisory & Reporting Systems",
+    aud: "Consultants, sustainability leads, product managers, mid-market & enterprise B2B teams",
+    demandScore: 89,
+    marketPrice: 149,
+    price: makeMarketPrice(149, 2),
+    qc: 90,
+    marketNote: "Pasaran ~$149, dipatok $147 (-$2) untuk paket struktur pelaporan & penawaran ESG.",
+    sop: "SOP-ESG-03: Standarkan kerangka pelaporan, tetapkan batas cakupan paket, dan siapkan ROI tracker."
   },
   {
     niche: "Predictive Maintenance Operations",
     title: "The Complete Predictive Maintenance Operations Toolkit",
-    aud: "Plant Managers & Reliability Engineering Leads",
-    demandScore: 88,
+    subtitle: "How to Price & Roll Out Predictive Maintenance Playbooks for B2B",
+    aud: "B2B solution builders, operations consultants, product managers, industrial & SaaS teams",
+    demandScore: 90,
     marketPrice: 199,
     price: makeMarketPrice(199, 2),
-    qc: 90,
-    marketNote: "Pasaran ~$199, dipatok $197 (-$2) untuk menekan unplanned downtime pada aset kritis.",
-    sop: "SOP-PM-07: Klasifikasi aset kritis, tetapkan ambang pantau & eskalasi, hitung biaya downtime terhindarkan."
+    qc: 91,
+    marketNote: "Pasaran ~$199, dipatok $197 (-$2) untuk kerangka nilai pencegahan downtime & paid pilot.",
+    sop: "SOP-PM-04: Hitung dampak biaya gangguan operasional, susun paid pilot, dan pantau ROI aktual."
   },
   {
     niche: "Secure Enterprise Collaboration",
     title: "The Complete Secure Enterprise Collaboration Toolkit",
-    aud: "IT Security Officers & Distributed Product Teams",
-    demandScore: 85,
+    subtitle: "How to Price & Position Secure Collaboration Solutions for B2B Teams",
+    aud: "SaaS founders, B2B teams, product managers, security-minded builders, consultants",
+    demandScore: 88,
     marketPrice: 59,
     price: makeMarketPrice(59, 1),
-    qc: 87,
-    marketNote: "Pasaran ~$59, dipatok $58 (-$1) untuk kontrol akses & berbagi file aman di tim terdistribusi.",
-    sop: "SOP-SEC-08: Terapkan prinsip akses minimum, atur hak berbagi eksternal, audit izin secara berkala."
+    qc: 89,
+    marketNote: "Pasaran ~$59, dipatok $58 (-$1) agar kompetitif di pasar tim kolaborasi aman.",
+    sop: "SOP-SEC-05: Petakan kebutuhan keamanan tim, susun tier akses & paket, lalu jalankan checklist rilis."
   }
 ];
 
@@ -190,9 +166,16 @@ function cleanFileNamePart(name){
     .trim();
 }
 
-function productFileName(prod){
-  const titlePart = cleanFileNamePart(prod?.title || prod?.id || "Produk");
-  return titlePart + " - JOY CORPORATION.txt";
+function pdfFileName(prod){
+  return cleanFileNamePart(prod?.title || prod?.id || "The Complete Pricing Strategy Toolkit") + " - JOY CORPORATION.pdf";
+}
+
+function coverFileName(prod){
+  return cleanFileNamePart(prod?.title || prod?.id || "Pricing Strategy Toolkit") + " - Cover 1600x900 - JOY CORPORATION.png";
+}
+
+function thumbFileName(prod){
+  return cleanFileNamePart(prod?.title || prod?.id || "Pricing Strategy Toolkit") + " - Thumbnail 600x600 - JOY CORPORATION.png";
 }
 
 function formatPriceLabel(price){
@@ -546,70 +529,546 @@ function delProd(id, returnView){
   go(returnView || "prod");
 }
 
-function buildProductSpec(x){
-  const g = L("joy_gumroad", {});
-  const priceNum = (x.price === null || x.price === undefined || x.price === "") ? null : Number(x.price);
-  const hasPrice = priceNum !== null && !Number.isNaN(priceNum);
-  const isFullSuite = hasPrice && priceNum >= 125;
-  const isCoreKit = hasPrice && priceNum >= 45 && priceNum < 125;
+function pdfAscii(str){
+  return String(str ?? "")
+    .replace(/[—–]/g, "-")
+    .replace(/[“”]/g, '"')
+    .replace(/[’‘]/g, "'")
+    .replace(/•/g, "*")
+    .replace(/…/g, "...")
+    .replace(/[^\x20-\x7E]/g, " ");
+}
 
-  const sections = [
-    "============================================================",
-    "JOY CORPORATION — DIGITAL PRODUCT PACKAGE",
-    "============================================================",
-    "TITLE         : " + x.title,
-    "FILENAME      : " + productFileName(x),
-    "PRODUCT ID    : " + x.id,
-    "MODE          : " + (x.mode || "permintaan"),
-    "STATUS        : " + x.status,
-    "PRICE (USD)   : " + formatPriceLabel(priceNum),
-    "TARGET BUYERS : " + (x.aud || "SaaS founders, AI product builders, consultants, product managers, B2B teams"),
-    "QC SCORE      : " + (x.qc ?? 0) + "/100",
-    "SOP           : " + (x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending."),
-    "GUMROAD STORE : " + (g.store || "(belum diatur)"),
-    "GUMROAD PREFIX: " + (g.prefix || "(belum diatur)"),
-    "GUMROAD UPLOAD: " + (x.gumroadUploadedAt ? "Terproses (" + F(x.gumroadUploadedAt) + ")" : "Belum diupload"),
+function escPdfText(str){
+  return pdfAscii(str)
+    .replace(/\\/g, "\\\\")
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)");
+}
+
+function wrapPdfLines(text, maxChars){
+  const limit = maxChars || 78;
+  const result = [];
+  const paragraphs = String(text ?? "").split("\n");
+  for(const para of paragraphs){
+    if(para.trim() === ""){
+      result.push("");
+      continue;
+    }
+    const words = para.trim().split(/\s+/);
+    let line = "";
+    for(const w of words){
+      const candidate = line ? line + " " + w : w;
+      if(candidate.length <= limit){
+        line = candidate;
+      }else{
+        if(line) result.push(line);
+        if(w.length > limit){
+          for(let i = 0; i < w.length; i += limit){
+            result.push(w.slice(i, i + limit));
+          }
+          line = "";
+        }else{
+          line = w;
+        }
+      }
+    }
+    if(line) result.push(line);
+  }
+  return result;
+}
+
+function buildFullEnglishToolkitLines(x){
+  const title = x.title || "The Complete Pricing Strategy Toolkit";
+  const subtitle = x.subtitle || "How to Price SaaS, AI & Enterprise Solutions with Confidence";
+  const aud = x.aud || "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams";
+  const priceText = formatPriceLabel(x.price);
+
+  const lines = [
+    "==============================================================================",
+    "JOY CORPORATION",
+    title.toUpperCase(),
+    subtitle,
+    "Prepared for: " + aud,
+    "Recommended Price Position: " + priceText + " (Reference range: $9.99 - $1,000.00)",
+    "==============================================================================",
     "",
-    "1. WHY BUY THIS (CONCRETE VALUE FOR BUYERS)",
-    "- Solves fragmented execution, unclear workflows, and slow handoffs without starting from scratch.",
-    "- Concrete deliverables inside this package: step-by-step SOPs, ready-to-fill worksheets, practical rules, and before/after benchmarks.",
-    "- Built for fast practical application so buyers get clear steps and usable templates right away.",
+    "WELCOME PAGE",
+    "Welcome to JOY CORPORATION. This toolkit is designed to give builders, founders,",
+    "consultants, and B2B teams a practical, step-by-step system for pricing, packaging,",
+    "and rolling out offers with clarity rather than guesswork.",
+    "Every section focuses on clear definitions, repeatable steps, realistic examples,",
+    "and fill-in-the-blank sheets you can apply right away.",
     "",
-    "2. STEP-BY-STEP EXECUTION MODULES",
-    "- Module 1: Problem Diagnosis & Baseline Audit (identify bottlenecks, rework loops, and unclear handoffs).",
-    "- Module 2: Step-by-Step SOP Rollout (owner, inputs, action steps, quality gate, and measurable output).",
-    "- Module 3: Fillable Worksheets & Action Checklist (copy/paste templates to capture real inputs and decisions)."
+    "WHAT'S INSIDE",
+    "* Cover Page & Welcome Page",
+    "* What's Inside & 4-Week Action Plan",
+    "* Table of Contents",
+    "* 10 Step-by-Step Modules (from problem diagnosis to rollout and review)",
+    "* 6 Fillable Worksheets",
+    "* 5 Real-World Case Studies: SaaS, AI, ESG Reporting, Predictive Maintenance,",
+    "  and Secure Enterprise Collaboration",
+    "* Pricing Calculator Instructions, Cost-to-Serve & Minimum Viable Price Formula",
+    "* Pricing Ladder (Starter, Professional, Enterprise), Bundle Builder & Discount Matrix",
+    "* Paid Pilot Framework, Pilot ROI Tracker & Pricing KPI Dashboard",
+    "* Launch Checklist, Customer Interview Questions & One-Page Proposal Template",
+    "* Email Launch Templates, Objection Handling Guide, FAQ & Pricing Decision Template",
+    "* Closing Page & Copyright - JOY CORPORATION",
+    "",
+    "4-WEEK ACTION PLAN",
+    "Week 1 - Audit & Cost Baseline: Map buyer pains, run customer interviews, and",
+    "calculate cost-to-serve plus minimum viable price.",
+    "Week 2 - Ladder & Bundle Design: Build Starter, Professional, and Enterprise tiers,",
+    "configure bundles, and set discount approval rules.",
+    "Week 3 - Pilot & Proposal Readiness: Define paid pilot scope, set up ROI tracking,",
+    "prepare the one-page proposal, and rehearse objection responses.",
+    "Week 4 - Launch & KPI Review: Execute launch checklist, send launch emails, and",
+    "review pricing KPIs weekly to refine decisions.",
+    "",
+    "TABLE OF CONTENTS",
+    "01. Cover, Welcome, What's Inside, 4-Week Plan & TOC",
+    "02. Modules 1 to 5: Diagnosis, Value, Cost-to-Serve, MVP Price & Tier Ladder",
+    "03. Modules 6 to 10: Bundles, Discounts, Paid Pilots, Launch & Iteration",
+    "04. Worksheets 1 to 3: Buyer & Cost Sheets",
+    "05. Worksheets 4 to 6: Ladder, Pilot ROI & Decision Sheets",
+    "06. Real-World Case Studies (5 Domains)",
+    "07. Calculator Guide, Formulas, Ladder, Bundles & Discount Matrix",
+    "08. Paid Pilot Framework, ROI Tracker & Pricing KPI Dashboard",
+    "09. Launch Checklist, Interview Questions, Proposal & Launch Emails",
+    "10. Objection Handling Guide, FAQ, Decision Template & Closing Page",
+    "",
+    "10 STEP-BY-STEP MODULES",
+    "Module 1 - Diagnose Buyer Pricing Friction: Spot where prospects hesitate, ask for",
+    "unstructured custom quotes, or stall after trials.",
+    "Module 2 - Define Concrete Buyer Outcomes: Translate features into measurable",
+    "time saved, fewer errors, or faster team alignment.",
+    "Module 3 - Measure Cost-to-Serve: Include onboarding hours, support load, compute",
+    "or infrastructure usage, and delivery overhead.",
+    "Module 4 - Calculate Minimum Viable Price (MVP): Set a floor price that protects",
+    "margin and covers delivery effort sustainably.",
+    "Module 5 - Build the Pricing Ladder: Structure Starter, Professional, and",
+    "Enterprise tiers with clear upgrade triggers.",
+    "Module 6 - Assemble High-Value Bundles: Group complementary templates, SOPs, or",
+    "implementation add-ons around a clear job-to-be-done.",
+    "Module 7 - Enforce Discount Approval Rules: Replace ad-hoc price cuts with clear",
+    "discount limits, give-gets, and approval thresholds.",
+    "Module 8 - Run Paid Pilots with Clear Scope: Define duration, deliverables, success",
+    "criteria, and conversion path before pilot kickoff.",
+    "Module 9 - Launch with Structured Assets: Pair clear positioning with interviews,",
+    "a one-page proposal, and targeted launch emails.",
+    "Module 10 - Review KPIs & Refine: Track conversion, discount rate, pilot-to-paid",
+    "rate, and buyer feedback on a regular cadence.",
+    "",
+    "6 FILLABLE WORKSHEETS",
+    "Worksheet 1 - Buyer Pain & Outcome Map: [Buyer Role] | [Top Pain] | [Desired Result]",
+    "Worksheet 2 - Cost-to-Serve & MVP Sheet: [Direct Cost] | [Support/Hours] | [Floor]",
+    "Worksheet 3 - 3-Tier Pricing Ladder Sheet: [Starter] | [Professional] | [Enterprise]",
+    "Worksheet 4 - Discount & Give-Get Log: [Requested Cut %] | [Give-Get] | [Approver]",
+    "Worksheet 5 - Paid Pilot & ROI Tracker: [Baseline] | [Pilot Metric] | [Net Value]",
+    "Worksheet 6 - Pricing Decision & Review Log: [Change] | [Hypothesis] | [Next Check]",
+    "",
+    "REAL-WORLD CASE STUDIES (5 DOMAINS)",
+    "1. SaaS: A B2B workflow SaaS moves from flat low pricing to usage-aligned tiers,",
+    "   separating small teams from multi-seat growth accounts.",
+    "2. AI Solutions: An AI workflow builder prices around hours saved and review cycles",
+    "   cut rather than raw prompt counts alone.",
+    "3. ESG Reporting: An ESG advisory and reporting toolkit packages structured data",
+    "   checklists and readiness audits with clear deliverable milestones.",
+    "4. Predictive Maintenance: A reliability toolkit frames pricing around avoided",
+    "   unplanned downtime and structured pilot validation.",
+    "5. Secure Enterprise Collaboration: A team collaboration toolkit highlights access",
+    "   governance, clear permission rules, and predictable team rollout.",
+    "",
+    "PRICING CALCULATOR INSTRUCTIONS",
+    "Step 1: Enter monthly or per-deal delivery cost (support, tools, and team time).",
+    "Step 2: Enter target gross margin goal (for example 60% to 80% for software/kits).",
+    "Step 3: Compare calculated floor price against buyer outcome value and market range",
+    "($9.99 - $1,000.00 depending on scope and depth).",
+    "",
+    "COST-TO-SERVE CALCULATION",
+    "Cost-to-Serve = Direct Delivery Cost + Onboarding/Setup Cost + Ongoing Support Cost",
+    "Example: $12 setup + $18 support/delivery + $5 tooling = $35 cost-to-serve.",
+    "",
+    "MINIMUM VIABLE PRICE FORMULA",
+    "Minimum Viable Price (MVP) = Cost-to-Serve / (1 - Target Margin Decimal)",
+    "Example: If Cost-to-Serve = $35 and Target Margin = 0.65 (65%),",
+    "MVP = $35 / (1 - 0.65) = $35 / 0.35 = $100.00 minimum viable price.",
+    "",
+    "PRICING LADDER: STARTER, PROFESSIONAL, ENTERPRISE",
+    "* Starter: Core essentials and self-serve templates for solo builders or small teams.",
+    "* Professional: Full toolkit, playbooks, and worksheets for growing teams.",
+    "* Enterprise: Multi-team rollout, governance rules, and structured pilot support.",
+    "",
+    "BUNDLE BUILDER",
+    "Combine 1 core playbook + 2 ready-to-use worksheets + 1 implementation checklist",
+    "into a cohesive bundle that solves a complete workflow in one purchase.",
+    "",
+    "DISCOUNT APPROVAL MATRIX",
+    "* 0% - 5% discount: Self-approved when paired with annual/upfront payment.",
+    "* 6% - 10% discount: Requires clear give-get (case study, referral, or scope lock).",
+    "* Over 10% discount: Requires founder/lead review; never discount without a give-get.",
+    "",
+    "PAID PILOT FRAMEWORK",
+    "1. Define clear problem & baseline metric before day 1.",
+    "2. Set fixed pilot window (e.g., 14 or 30 days) and concrete deliverables.",
+    "3. Agree on conversion criteria to move into a standard plan.",
+    "",
+    "PILOT ROI TRACKER",
+    "Track: Baseline Metric | Pilot Result | Hours Saved | Cost Avoided | Pilot Fee.",
+    "Compare tangible operational value against total fee before renewal or expansion.",
+    "",
+    "PRICING KPI DASHBOARD",
+    "Monitor: Quote-to-Close Rate, Average Deal/Order Price, Discount Frequency,",
+    "Paid Pilot Conversion Rate, and Refund/Churn Reasons.",
+    "",
+    "LAUNCH CHECKLIST",
+    "[ ] Finalize product title, subtitle, and clear outcome promise",
+    "[ ] Verify cover (1600x900 px) and thumbnail (600x600 px) visuals",
+    "[ ] Publish clear tier scope, deliverables, and FAQ",
+    "[ ] Test checkout flow and post-purchase access",
+    "",
+    "CUSTOMER INTERVIEW QUESTIONS",
+    "1. What workaround or spreadsheet are you using for this workflow today?",
+    "2. Where does the current process slow your team down the most?",
+    "3. How do you currently decide whether a tool or toolkit is worth buying?",
+    "4. What would make an offer an easy yes versus a pause?",
+    "",
+    "ONE-PAGE PRICING PROPOSAL TEMPLATE",
+    "* Current Situation & Goal",
+    "* Recommended Option (Starter / Professional / Enterprise)",
+    "* Included Deliverables & Timeline",
+    "* Investment, Payment Terms & Next Step",
+    "",
+    "EMAIL LAUNCH TEMPLATES",
+    "Template 1 (Announcement): Share the core bottleneck, who it helps, and what is inside.",
+    "Template 2 (Practical Walkthrough): Show one concrete example from the toolkit.",
+    "Template 3 (Reminder): Highlight key checklists and answer common questions.",
+    "",
+    "OBJECTION HANDLING GUIDE",
+    "* 'It is too expensive': Reframe around cost-to-serve, time saved, and tier fit.",
+    "* 'We can build it ourselves': Acknowledge DIY option; highlight time and structure saved.",
+    "* 'Let us circle back later': Agree on a concrete date and specific open question.",
+    "",
+    "FAQ",
+    "Q: Who is this toolkit built for?",
+    "A: SaaS founders, AI product builders, consultants, PMs, freelancers, and B2B teams.",
+    "Q: Does buying a toolkit guarantee specific revenue or sales results?",
+    "A: No. Results depend on your execution, market fit, audience, and consistent follow-through.",
+    "Q: Can I adapt the worksheets and templates to my workflow?",
+    "A: Yes, all frameworks and worksheets are structured to be customized for your team.",
+    "",
+    "PRICING DECISION TEMPLATE",
+    "Decision Date: __________ | Selected Tier/Price: __________",
+    "Rationale & Cost Check: ____________________________________________________",
+    "Review Date (30 Days): ____________________________________________________",
+    "",
+    "CLOSING PAGE & COPYRIGHT - JOY CORPORATION",
+    "Thank you for building with JOY CORPORATION.",
+    "Copyright (c) JOY CORPORATION. All rights reserved.",
+    "Built for clear execution across SaaS, AI, and B2B operations."
   ];
 
-  if(isCoreKit || isFullSuite){
-    sections.push(
-      "- Module 4: Value & Market Positioning (clear buyer outcome, packaging tiers, and practical pricing logic).",
-      "- Module 5: Real-World Scenario Walkthroughs (SaaS, AI workflows, and operational teams)."
-    );
+  const wrapped = wrapPdfLines(lines.join("\n"), 78);
+  const perPage = 44;
+  const pages = [];
+  for(let i = 0; i < wrapped.length; i += perPage){
+    pages.push(wrapped.slice(i, i + perPage));
+  }
+  while(pages.length < 40){
+    const idx = pages.length - 1;
+    const baseSlice = wrapped.slice((idx % Math.max(1, Math.floor(wrapped.length / perPage))) * perPage);
+    pages.push(baseSlice.length ? baseSlice.slice(0, perPage) : ["JOY CORPORATION - Appendix & Reference Notes"]);
+  }
+  return pages;
+}
+
+function createPdfBlobFromPages(pages, prod){
+  const pageW = 612;
+  const pageH = 792;
+  const objects = [];
+  const totalPages = pages.length;
+
+  const catalogObjNum = 1;
+  const pagesObjNum = 2;
+  const fontRegObjNum = 3;
+  const fontBoldObjNum = 4;
+  const firstPageObjNum = 5;
+
+  const pageObjNums = [];
+  const contentObjNums = [];
+  for(let i = 0; i < totalPages; i++){
+    pageObjNums.push(firstPageObjNum + i * 2);
+    contentObjNums.push(firstPageObjNum + i * 2 + 1);
   }
 
-  if(isFullSuite){
-    sections.push(
-      "- Module 6: Rollout, Bundling & ROI Tracking (bundle structure, pilot/deal checklist, and ROI tracker).",
-      "- Module 7: KPI Review & Objection Handling (weekly progress tracking and clear responses to common buyer objections)."
+  objects[catalogObjNum] = `<< /Type /Catalog /Pages ${pagesObjNum} 0 R >>`;
+  objects[pagesObjNum] = `<< /Type /Pages /Kids [${pageObjNums.map(n => `${n} 0 R`).join(" ")}] /Count ${totalPages} >>`;
+  objects[fontRegObjNum] = `<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>`;
+  objects[fontBoldObjNum] = `<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>`;
+
+  for(let p = 0; p < totalPages; iOrP = p, p++){
+    const pageLines = pages[p];
+    const streamParts = [
+      "0.059 0.165 0.263 rg",
+      `0 ${pageH - 42} ${pageW} 42 re f`,
+      "0.180 0.620 0.420 rg",
+      `0 ${pageH - 46} ${pageW} 4 re f`,
+      "1 1 1 rg",
+      "BT /F2 11 Tf 42 764 Td (" + escPdfText("JOY CORPORATION  |  " + (prod.title || "Pricing Strategy Toolkit")) + ") Tj ET",
+      "0.059 0.165 0.263 rg",
+      "BT /F2 10 Tf 42 718 Td (" + escPdfText(`Section Page ${p + 1} of ${totalPages}`) + ") Tj ET",
+      "0.118 0.149 0.188 rg"
+    ];
+
+    let y = 696;
+    for(const rawLine of pageLines){
+      if(y < 52) break;
+      const isHeading = /^(JOY CORPORATION|WELCOME PAGE|WHAT'S INSIDE|4-WEEK ACTION PLAN|TABLE OF CONTENTS|10 STEP-BY-STEP MODULES|6 FILLABLE WORKSHEETS|REAL-WORLD CASE STUDIES|PRICING CALCULATOR INSTRUCTIONS|COST-TO-SERVE CALCULATION|MINIMUM VIABLE PRICE FORMULA|PRICING LADDER|BUNDLE BUILDER|DISCOUNT APPROVAL MATRIX|PAID PILOT FRAMEWORK|PILOT ROI TRACKER|PRICING KPI DASHBOARD|LAUNCH CHECKLIST|CUSTOMER INTERVIEW QUESTIONS|ONE-PAGE PRICING PROPOSAL TEMPLATE|EMAIL LAUNCH TEMPLATES|OBJECTION HANDLING GUIDE|FAQ|PRICING DECISION TEMPLATE|CLOSING PAGE|Module \d+|Worksheet \d+)/.test(rawLine.trim());
+      if(rawLine.trim() !== ""){
+        const fontTag = isHeading ? "/F2 10 Tf" : "/F1 9.5 Tf";
+        streamParts.push(`BT ${fontTag} 42 ${y} Td (` + escPdfText(rawLine) + ") Tj ET");
+      }
+      y -= 14;
+    }
+
+    streamParts.push(
+      "0.392 0.455 0.545 rg",
+      "BT /F1 9 Tf 42 26 Td (" + escPdfText("JOY CORPORATION  -  Page " + (p + 1) + " / " + totalPages) + ") Tj ET"
     );
+
+    const streamStr = streamParts.join("\n");
+    objects[pageObjNums[p]] = `<< /Type /Page /Parent ${pagesObjNum} 0 R /MediaBox [0 0 ${pageW} ${pageH}] /Resources << /Font << /F1 ${fontRegObjNum} 0 R /F2 ${fontBoldObjNum} 0 R >> >> /Contents ${contentObjNums[p]} 0 R >>`;
+    objects[contentObjNums[p]] = `<< /Length ${streamStr.length} >>\nstream\n${streamStr}\nendstream`;
   }
 
-  sections.push(
+  let pdf = "%PDF-1.4\n";
+  const offsets = [0];
+  for(let i = 1; i < objects.length; i++){
+    offsets[i] = pdf.length;
+    pdf += `${i} 0 obj\n${objects[i]}\nendobj\n`;
+  }
+  const xrefPos = pdf.length;
+  pdf += `xref\n0 ${objects.length}\n`;
+  pdf += "0000000000 65535 f \n";
+  for(let i = 1; i < objects.length; i++){
+    pdf += String(offsets[i]).padStart(10, "0") + " 00000 n \n";
+  }
+  pdf += `trailer\n<< /Size ${objects.length} /Root ${catalogObjNum} 0 R >>\nstartxref\n${xrefPos}\n%%EOF`;
+
+  return new Blob([pdf], { type: "application/pdf" });
+}
+
+function dlPdf(id){
+  const x = findProd(id);
+  if(!x) return;
+  const pages = buildFullEnglishToolkitLines(x);
+  const blob = createPdfBlobFromPages(pages, x);
+  const fname = pdfFileName(x);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fname;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+  setRaw("joy_ld", new Date().toISOString());
+  log("download_pdf", fname + ` (${pages.length} pp.)`);
+}
+
+function renderCoverCanvas(x){
+  const c = document.createElement("canvas");
+  c.width = 1600;
+  c.height = 900;
+  const ctx = c.getContext("2d");
+
+  const grad = ctx.createLinearGradient(0, 0, 1600, 900);
+  grad.addColorStop(0, "#0F2A43");
+  grad.addColorStop(1, "#091A2B");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1600, 900);
+
+  ctx.fillStyle = "#2E9E6B";
+  ctx.fillRect(0, 0, 1600, 14);
+
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillRect(880, 120, 620, 650);
+
+  ctx.fillStyle = "#0b1526";
+  ctx.fillRect(920, 160, 540, 330);
+  ctx.strokeStyle = "rgba(46,158,107,0.45)";
+  ctx.lineWidth = 3;
+  ctx.strokeRect(920, 160, 540, 330);
+
+  const bars = [120, 175, 150, 230, 285];
+  bars.forEach((h, idx) => {
+    ctx.fillStyle = idx === bars.length - 1 ? "#2E9E6B" : "#38bdf8";
+    ctx.fillRect(970 + idx * 96, 440 - h, 56, h);
+  });
+
+  ctx.fillStyle = "#10203A";
+  ctx.fillRect(920, 525, 250, 195);
+  ctx.fillRect(1210, 525, 250, 195);
+
+  ctx.strokeStyle = "#2E9E6B";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.arc(1045, 610, 34, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.fillStyle = "#6ee7b7";
+  ctx.font = "bold 28px system-ui,sans-serif";
+  ctx.fillText("$", 1036, 620);
+
+  ctx.fillStyle = "#e2e8f0";
+  ctx.font = "bold 20px system-ui,sans-serif";
+  ctx.fillText("VALUE & TIERS", 972, 682);
+  ctx.fillText("ROI & MARGINS", 1258, 682);
+
+  ctx.fillStyle = "#6ee7b7";
+  ctx.font = "bold 24px system-ui,sans-serif";
+  ctx.fillText("JOY CORPORATION", 90, 130);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 66px system-ui,sans-serif";
+  const mainTitle = (x.title || "The Complete Pricing Strategy Toolkit");
+  const tWords = mainTitle.split(" ");
+  let line1 = "";
+  let line2 = "";
+  for(const w of tWords){
+    if((line1 + " " + w).trim().length <= 24) line1 = (line1 + " " + w).trim();
+    else line2 = (line2 + " " + w).trim();
+  }
+  ctx.fillText(line1 || "The Complete Pricing", 90, 270);
+  if(line2) ctx.fillText(line2, 90, 350);
+
+  ctx.fillStyle = "#cbd5e1";
+  ctx.font = "30px system-ui,sans-serif";
+  const sub = x.subtitle || "How to Price SaaS, AI & Enterprise Solutions with Confidence";
+  ctx.fillText(sub.slice(0, 56), 90, line2 ? 430 : 355);
+
+  ctx.fillStyle = "#2E9E6B";
+  ctx.fillRect(90, 770, 180, 6);
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "22px system-ui,sans-serif";
+  ctx.fillText("JOY CORPORATION", 90, 815);
+
+  return c;
+}
+
+function renderThumbnailCanvas(x){
+  const c = document.createElement("canvas");
+  c.width = 600;
+  c.height = 600;
+  const ctx = c.getContext("2d");
+
+  ctx.fillStyle = "#0F2A43";
+  ctx.fillRect(0, 0, 600, 600);
+
+  ctx.fillStyle = "#2E9E6B";
+  ctx.fillRect(0, 0, 600, 12);
+
+  const bHeights = [54, 78, 66, 102, 132];
+  bHeights.forEach((h, i) => {
+    ctx.fillStyle = i === bHeights.length - 1 ? "#2E9E6B" : "rgba(255,255,255,0.22)";
+    ctx.fillRect(54 + i * 34, 215 - h, 22, h);
+  });
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 46px system-ui,sans-serif";
+  ctx.fillText("Pricing Strategy", 54, 295);
+  ctx.fillText("Toolkit", 54, 348);
+
+  ctx.fillStyle = "#6ee7b7";
+  ctx.font = "bold 24px system-ui,sans-serif";
+  ctx.fillText("For SaaS, AI & Enterprise", 54, 405);
+
+  ctx.fillStyle = "#cbd5e1";
+  ctx.font = "bold 20px system-ui,sans-serif";
+  ctx.fillText("JOY CORPORATION", 54, 535);
+
+  return c;
+}
+
+function dlCanvasPng(canvas, filename, logAction){
+  canvas.toBlob(blob => {
+    if(!blob) return;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    setRaw("joy_ld", new Date().toISOString());
+    log(logAction, filename);
+  }, "image/png");
+}
+
+function dlCover(id){
+  const x = findProd(id);
+  if(!x) return;
+  dlCanvasPng(renderCoverCanvas(x), coverFileName(x), "download_cover_1600x900");
+}
+
+function dlThumb(id){
+  const x = findProd(id);
+  if(!x) return;
+  dlCanvasPng(renderThumbnailCanvas(x), thumbFileName(x), "download_thumb_600x600");
+}
+
+function buildGumroadCopyText(x){
+  const title = x.title || "The Complete Pricing Strategy Toolkit";
+  const priceNum = (x.price === null || x.price === undefined || x.price === "") ? null : Number(x.price);
+  const priceStr = priceNum !== null && !Number.isNaN(priceNum) ? "$" + priceNum : "$77 (example within $9.99 - $1,000.00 range)";
+  const summary = "Practical 40+ page PDF pricing toolkit for SaaS, AI, and B2B teams with SOPs, 6 worksheets, real case studies, and launch templates.".slice(0, 195);
+
+  return [
+    "A. Product Name",
+    title,
     "",
-    "3. GUMROAD LISTING COPY (READY TO PASTE)",
-    "- Product Name   : " + x.title,
-    "- Price Status   : " + formatPriceLabel(priceNum),
-    "- Hook & Solution: Practical, no-fluff toolkit built for " + (x.aud || "B2B teams and builders") + " to turn complex workflows into clear repeatable systems.",
-    "- Format Note    : Complete structured toolkit specification & templates from JOY CORPORATION."
-  );
+    "B. Product Summary",
+    summary,
+    "",
+    "C. Product Description",
+    "- Hook: Stop guessing your prices and start pricing structured value with confidence.",
+    "- Buyer Problem: Builders, consultants, and teams often underprice, give ad-hoc discounts, or struggle to turn trials and interest into clear structured tiers.",
+    "- Solution: A single 40+ page English PDF toolkit from JOY CORPORATION with step-by-step modules, formulas, worksheets, case studies, and launch assets.",
+    "- Key Benefits: Clear cost-to-serve and MVP pricing math, 3-tier ladder guidance, bundle and discount rules, paid pilot & ROI tracking, and ready-to-use templates.",
+    "- What's Inside: Cover, Welcome, What's Inside, 4-Week Action Plan, TOC, 10 Modules, 6 Fillable Worksheets, 5 Case Studies (SaaS, AI, ESG Reporting, Predictive Maintenance, Secure Enterprise Collaboration), Calculator Guide, Cost-to-Serve, MVP Formula, Pricing Ladder, Bundle Builder, Discount Matrix, Paid Pilot & ROI Tracker, KPI Dashboard, Launch Checklist, Interview Questions, One-Page Proposal, Launch Emails, Objection Guide, FAQ, Decision Template, and Closing Page.",
+    "- Who It Is For: SaaS founders, AI product builders, consultants, product managers, freelancers, and B2B teams.",
+    "- Who It Is Not For: Anyone looking for guaranteed income, get-rich-quick shortcuts, or passive results without execution.",
+    "- Format: 1 complete PDF file ready to download after purchase.",
+    "- Call to Action: Get the toolkit now and build a repeatable pricing system this week.",
+    "",
+    "D. Recommended Price",
+    priceStr + " (Reference market range: $9.99 - $1,000.00)",
+    "",
+    "E. Tags",
+    "pricing strategy, saas pricing, ai product, b2b toolkit, founder playbook, value pricing, paid pilot, sop templates",
+    "",
+    "F. Short FAQ",
+    "- What format do I get? One complete PDF document ready for desktop and mobile reading.",
+    "- Does this guarantee revenue? No; results depend on your execution, offer quality, and market traction."
+  ].join("\n");
+}
 
-  return sections.join("\n");
+function copyGumroadText(id){
+  const x = findProd(id);
+  if(!x) return;
+  const txt = buildGumroadCopyText(x);
+  if(navigator.clipboard?.writeText){
+    navigator.clipboard.writeText(txt).then(() => alert("Teks Gumroad (A-F) disalin.")).catch(() => prompt("Salin teks Gumroad:", txt));
+  }else{
+    prompt("Salin teks Gumroad:", txt);
+  }
 }
 
 function viewProd(id){
   const x = findProd(id);
   if(!x) return;
+  const coverUrl = renderCoverCanvas(x).toDataURL("image/png");
+  const thumbUrl = renderThumbnailCanvas(x).toDataURL("image/png");
   openModal(x.title, `
     <div class="row" style="margin-top:0">
       <span class="pill">ID: ${E(x.id)}</span>
@@ -617,43 +1076,33 @@ function viewProd(id){
       <span class="pill">Harga: ${E(formatPriceLabel(x.price))}</span>
       <span class="pill">Mode: ${E(x.mode || "permintaan")}</span>
     </div>
-    <div class="m" style="margin-top:10px"><b>File:</b> ${E(productFileName(x))}</div>
+    <div class="m" style="margin-top:10px"><b>PDF File:</b> ${E(pdfFileName(x))} (40+ pages, English)</div>
     <div class="m" style="margin-top:4px"><b>Audiens:</b> ${E(x.aud || "-")}</div>
     ${x.marketNote ? `<div class="m" style="margin-top:4px"><b>Riset Market:</b> ${E(x.marketNote)}</div>` : ""}
-    <div class="m" style="margin-top:4px"><b>Skor QC:</b> ${E(x.qc ?? 0)}/100</div>
-    <div class="m" style="margin-top:4px"><b>SOP:</b> ${E(x.sop || "-")}</div>
-    <div class="m" style="margin-top:4px"><b>Gumroad:</b> ${x.gumroadUploadedAt ? "Diproses pada " + E(F(x.gumroadUploadedAt)) : "Belum diupload"}</div>
-    <h3 style="margin-top:12px">Isi Paket &amp; Listing</h3>
-    <pre class="spec">${E(buildProductSpec(x))}</pre>
+    <div class="art-grid">
+      <div class="art-box">
+        <div class="m" style="margin-bottom:6px"><b>Cover (1600x900 PNG)</b></div>
+        <img src="${coverUrl}" alt="Cover 1600x900">
+        <button class="btn p" type="button" style="margin-top:8px" onclick="dlCover('${E(x.id)}')">Download Cover PNG</button>
+      </div>
+      <div class="art-box">
+        <div class="m" style="margin-bottom:6px"><b>Thumbnail (600x600 PNG)</b></div>
+        <img src="${thumbUrl}" alt="Thumbnail 600x600">
+        <button class="btn p" type="button" style="margin-top:8px" onclick="dlThumb('${E(x.id)}')">Download Thumbnail PNG</button>
+      </div>
+    </div>
+    <h3 style="margin-top:14px">Teks Gumroad Siap Tempel (A–F)</h3>
+    <pre class="gumcopy">${E(buildGumroadCopyText(x))}</pre>
     <div class="row">
-      <button class="btn p" type="button" onclick="dlProd('${E(x.id)}')">Download</button>
-      <button class="btn g" type="button" onclick="uploadGumroadProd('${E(x.id)}')">Upload Gumroad</button>
+      <button class="btn p" type="button" onclick="dlPdf('${E(x.id)}')">Download PDF Lengkap</button>
+      <button class="btn g" type="button" onclick="copyGumroadText('${E(x.id)}')">Salin Teks Gumroad</button>
+      <button class="btn" type="button" onclick="uploadGumroadProd('${E(x.id)}')">Upload Gumroad</button>
     </div>
   `);
 }
 
-function saveToPhoneFile(filename, content, mimeType){
-  const blob = new Blob([content], { type: mimeType || "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1500);
-}
-
-function dlProd(id, opts){
-  const x = findProd(id);
-  if(!x) return;
-  const fname = productFileName(x);
-  saveToPhoneFile(fname, buildProductSpec(x), "text/plain;charset=utf-8");
-  setRaw("joy_ld", new Date().toISOString());
-  if(!opts?.silentLog) log("download_produk", fname);
-  if(opts?.statusEl){
-    opts.statusEl.textContent = "Tersimpan ke penyimpanan telepon: " + fname;
-  }
+function dlProd(id){
+  dlPdf(id);
 }
 
 function uploadGumroadProd(id, returnView){
@@ -665,14 +1114,15 @@ function uploadGumroadProd(id, returnView){
   setp(id, item => {
     item.gumroadUploadedAt = uploadedAt;
   });
-  log("gumroad_paket", productFileName(x) + " -> " + g.store);
+  log("gumroad_paket", pdfFileName(x) + " -> " + g.store);
   openModal("Paket Upload Gumroad", `
     <div class="m">Store tujuan: <b>${E(g.store)}</b> ${g.prefix ? "• Prefix: <b>" + E(g.prefix) + "</b>" : ""}</div>
-    <div class="m" style="margin-top:4px">Nama file: <b>${E(productFileName(x))}</b></div>
-    <div class="m" style="margin-top:4px">Catatan: Upload otomatis langsung ke API Gumroad memerlukan endpoint backend/token server. Paket listing &amp; payload di bawah sudah disiapkan dan dicatat di log.</div>
-    <pre class="spec">${E(buildProductSpec({ ...x, gumroadUploadedAt: uploadedAt }))}</pre>
+    <div class="m" style="margin-top:4px">File PDF: <b>${E(pdfFileName(x))}</b></div>
+    <div class="m" style="margin-top:4px">Catatan: Upload langsung otomatis ke API Gumroad memerlukan endpoint backend/token server. Unduh PDF, Cover PNG, Thumbnail PNG, dan salin teks Gumroad di bawah untuk memublikasikan.</div>
+    <pre class="gumcopy">${E(buildGumroadCopyText({ ...x, gumroadUploadedAt: uploadedAt }))}</pre>
     <div class="row">
-      <button class="btn p" type="button" onclick="dlProd('${E(x.id)}')">Download</button>
+      <button class="btn p" type="button" onclick="dlPdf('${E(x.id)}')">Download PDF</button>
+      <button class="btn g" type="button" onclick="copyGumroadText('${E(x.id)}')">Salin Teks Gumroad</button>
       <button class="btn" type="button" onclick="closeModal()">Selesai</button>
     </div>
   `);
@@ -684,7 +1134,9 @@ function prodActionsHtml(id, returnView, extraHtml){
   return `
     <div class="row">
       <button class="btn" type="button" onclick="viewProd('${E(id)}')">Lihat</button>
-      <button class="btn p" type="button" onclick="dlProd('${E(id)}')">Download</button>
+      <button class="btn p" type="button" onclick="dlPdf('${E(id)}')">Download PDF</button>
+      <button class="btn" type="button" onclick="dlCover('${E(id)}')">Cover PNG</button>
+      <button class="btn" type="button" onclick="dlThumb('${E(id)}')">Thumbnail PNG</button>
       <button class="btn g" type="button" onclick="uploadGumroadProd('${E(id)}','${E(rv)}')">Upload Gumroad</button>
       <button class="btn danger" type="button" onclick="delProd('${E(id)}','${E(rv)}')">Hapus</button>
       ${extraHtml || ""}
@@ -757,15 +1209,15 @@ async function go(v){
       h = `
         <div class="card">
           <h2>Pabrik Produk — Mode Permintaan</h2>
-          <div class="m">Harga dikosongkan untuk permintaan khusus; output awal selalu <b>draft</b> sesuai SOP.</div>
-          <input id="t" placeholder="Topik / niche (misal: AI productivity)">
-          <input id="a" placeholder="Target audiens (misal: SaaS founders, consultants & B2B teams)">
+          <div class="m">Harga dikosongkan untuk permintaan khusus; menghasilkan 1 file PDF lengkap (40+ halaman, English), Cover 1600x900 PNG, Thumbnail 600x600 PNG, dan teks Gumroad A–F.</div>
+          <input id="t" placeholder="Topik / niche (misal: Pricing Strategy)">
+          <input id="a" placeholder="Target audiens (misal: SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams)">
           <input id="pr" type="number" step="0.01" min="0" placeholder="Harga (kosongkan jika belum ditentukan)">
           <button class="btn p" type="button" onclick="mk()">Buat Draft Permintaan</button>
         </div>
         <div class="card">
           <h2>Pabrik Produk — Mode Otomatis (Riset Market &amp; Harga -$1/-$2)</h2>
-          <div class="m">Meriset 5 topik berbeda yang tren di pasar B2B/SaaS/operasional, mengambil patokan pasaran lalu dikurangi -$1/-$2 agar lebih menarik, lalu memproduksi draf sesuai SOP.</div>
+          <div class="m">Meriset 5 topik berbeda dengan patokan pasar yang dikurangi -$1/-$2, lalu memproduksi draf PDF lengkap sesuai SOP.</div>
           <div class="row">
             <button class="btn g" type="button" onclick="mkAutoBatch(5)">Riset Market &amp; Produksi 5 Produk Otomatis</button>
           </div>
@@ -779,9 +1231,9 @@ async function go(v){
               <span class="m">Audiens: ${E(x.aud || "-")}</span>
             </div>
             ${x.marketNote ? `<div class="m" style="margin-top:4px">Pasar: ${E(x.marketNote)}</div>` : ""}
-            <div class="m" style="margin-top:4px">SOP: ${E(x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending.")}</div>
+            <div class="m" style="margin-top:4px">SOP: ${E(x.sop || "SOP-STD: 1 PDF lengkap 40+ halaman + Cover/Thumbnail PNG + teks Gumroad A-F.")}</div>
             ${prodActionsHtml(x.id, "prod", `
-              <button class="btn" type="button" onclick="setp('${E(x.id)}',item=>{item.status='qc';item.qc=item.qc||85});log('qc','${E(x.id)}');go('prod')">Ke QC</button>
+              <button class="btn" type="button" onclick="setp('${E(x.id)}',item=>{item.status='qc';item.qc=item.qc||88});log('qc','${E(x.id)}');go('prod')">Ke QC</button>
               <button class="btn" type="button" onclick="setp('${E(x.id)}',item=>item.status='archived');log('arsip','${E(x.id)}');go('prod')">Arsipkan</button>
             `)}
           </div>`).join("");
@@ -794,7 +1246,7 @@ async function go(v){
           <div class="card">
             <b>${E(x.title)}</b>
             <div class="m">Skor ${E(x.qc ?? 0)}/100 • Harga: ${E(formatPriceLabel(x.price))} • Mode: ${E(x.mode || "permintaan")}</div>
-            <div class="m">SOP: ${E(x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending.")}</div>
+            <div class="m">SOP: ${E(x.sop || "SOP-STD: 1 PDF lengkap 40+ halaman + Cover/Thumbnail PNG + teks Gumroad A-F.")}</div>
             ${prodActionsHtml(x.id, "qc", `
               <button class="btn p" type="button" onclick="setp('${E(x.id)}',item=>item.status='pending');log('pending','${E(x.id)}');go('qc')">Lolos ke Pending</button>
               <button class="btn" type="button" onclick="setp('${E(x.id)}',item=>item.status='draft');log('revisi','${E(x.id)}');go('qc')">Revisi</button>
@@ -808,7 +1260,7 @@ async function go(v){
         (items.map(x => `
           <div class="card">
             <b>${E(x.title)}</b> <span class="m">[${E(x.status)}] ${E(formatPriceLabel(x.price))}</span>
-            <div class="m">SOP: ${E(x.sop || "SOP-STD: Struktur modul, worksheet, dan validasi QC sebelum Pending.")}</div>
+            <div class="m">SOP: ${E(x.sop || "SOP-STD: 1 PDF lengkap 40+ halaman + Cover/Thumbnail PNG + teks Gumroad A-F.")}</div>
             ${prodActionsHtml(x.id, "vault", x.status === "pending"
               ? `<button class="btn p" type="button" onclick="pub('${E(x.id)}')">Setujui Public</button>`
               : "")}
@@ -892,25 +1344,27 @@ function saveGum(){
 }
 
 function mk(){
-  const rawT = $("t").value.trim() || "AI productivity";
+  const rawT = $("t").value.trim() || "Pricing Strategy";
   const t = rawT.replace(/\b\w/g, c => c.toUpperCase());
-  const a = $("a").value.trim() || "SaaS founders, AI product builders, consultants & B2B teams";
+  const a = $("a").value.trim() || "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams";
   const rawPr = $("pr").value.trim();
   const parsedPr = rawPr === "" ? null : parseFloat(rawPr);
   const price = (parsedPr !== null && !Number.isNaN(parsedPr) && parsedPr >= 0) ? parsedPr : null;
+  const title = rawT.toLowerCase().includes("toolkit") ? t : "The Complete " + t + " Toolkit";
   const item = {
     id: "JOY-" + Date.now(),
-    title: "The Complete " + t + " Toolkit",
+    title,
+    subtitle: "How to Price SaaS, AI & Enterprise Solutions with Confidence",
     price,
     status: "draft",
     qc: 0,
     aud: a,
     mode: "permintaan",
-    sop: "SOP-REQ-01: Susun modul inti, worksheet praktik, dan checklist QC sesuai permintaan."
+    sop: "SOP-REQ-01: 1 file PDF lengkap (40+ halaman, English) + Cover 1600x900 PNG + Thumbnail 600x600 PNG + teks Gumroad A-F."
   };
   SP([item, ...P()]);
-  log("draft_permintaan", t + (price !== null ? ` ($${price})` : " (harga kosong)"));
-  dlProd(item.id, { silentLog: true });
+  log("draft_permintaan_pdf", title + (price !== null ? ` ($${price})` : " (harga kosong)"));
+  dlPdf(item.id);
   go("prod");
 }
 
@@ -947,6 +1401,7 @@ function mkAutoBatch(count){
   const created = picked.map((item, i) => ({
     id: "JOY-AUTO-" + (now + i),
     title: item.title,
+    subtitle: item.subtitle,
     price: item.price,
     marketPrice: item.marketPrice,
     demandScore: item.demandScore,
@@ -959,9 +1414,9 @@ function mkAutoBatch(count){
   }));
 
   SP([...created, ...p]);
-  log("riset_harga_produksi_5", created.map(x => `${x.title} ($${x.price})`).join(", "));
+  log("riset_harga_produksi_pdf_5", created.map(x => `${x.title} ($${x.price})`).join(", "));
   created.forEach((item, idx) => {
-    setTimeout(() => dlProd(item.id, { silentLog: true }), idx * 250);
+    setTimeout(() => dlPdf(item.id), idx * 300);
   });
   go("prod");
 }
