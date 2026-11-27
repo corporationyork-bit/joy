@@ -165,6 +165,90 @@ const MARKET_RESEARCH_POOL = [
     qc: 89,
     marketNote: "Pasaran ~$59, dipatok $58 (-$1) agar kompetitif di pasar tim kolaborasi aman.",
     sop: "SOP-SEC-05: Petakan kebutuhan keamanan tim, susun tier akses & paket, lalu jalankan checklist rilis."
+  },
+  {
+    niche: "Revenue Operations & Deal Desk",
+    title: "The Complete Revenue Operations & Deal Desk Toolkit",
+    subtitle: "How to Standardize Quotes, Approvals & Expansion Pricing for B2B",
+    aud: "RevOps leads, SaaS founders, sales ops managers, B2B teams",
+    demandScore: 91,
+    marketPrice: 129,
+    price: makeMarketPrice(129, 2),
+    qc: 90,
+    marketNote: "Pasaran ~$129, dipatok $127 (-$2) untuk mempercepat alur persetujuan harga & paket.",
+    sop: "SOP-REV-06: Rapikan aturan persetujuan penawaran, paket ekspansi, dan pelacakan margin."
+  },
+  {
+    niche: "Cloud FinOps & Unit Economics",
+    title: "The Complete Cloud FinOps & Unit Economics Toolkit",
+    subtitle: "How to Track Infrastructure Cost & Protect Gross Margin in B2B",
+    aud: "Product managers, engineering leads, SaaS founders, finance teams",
+    demandScore: 88,
+    marketPrice: 119,
+    price: makeMarketPrice(119, 2),
+    qc: 89,
+    marketNote: "Pasaran ~$119, dipatok $117 (-$2) untuk pemetaan biaya beban sistem & batas margin.",
+    sop: "SOP-FIN-07: Ukur biaya per akun/pengguna, tetapkan batas minimum harga, dan pantau tren mingguan."
+  },
+  {
+    niche: "B2B Onboarding & Activation",
+    title: "The Complete B2B Onboarding & Activation Toolkit",
+    subtitle: "How to Structure Fast Time-to-Value & Reduce Early Churn",
+    aud: "Customer success leads, product managers, SaaS founders, consultants",
+    demandScore: 87,
+    marketPrice: 69,
+    price: makeMarketPrice(69, 1),
+    qc: 88,
+    marketNote: "Pasaran ~$69, dipatok $68 (-$1) untuk mempercepat aktivasi pengguna baru.",
+    sop: "SOP-ONB-08: Tetapkan milestone aktivasi awal, checklist serah terima, dan evaluasi retensi."
+  },
+  {
+    niche: "API & Usage-Based Monetization",
+    title: "The Complete API & Usage-Based Pricing Toolkit",
+    subtitle: "How to Design Predictable Usage Tiers & Overages for Builders",
+    aud: "API builders, SaaS founders, technical product managers, B2B teams",
+    demandScore: 92,
+    marketPrice: 89,
+    price: makeMarketPrice(89, 2),
+    qc: 90,
+    marketNote: "Pasaran ~$89, dipatok $87 (-$2) untuk merancang paket berbasis pemakaian yang jelas.",
+    sop: "SOP-API-09: Pilih satuan pemakaian utama, susun batas kuota tiap tier, dan siapkan simulasi tagihan."
+  },
+  {
+    niche: "B2B Advisory & Retainer Packaging",
+    title: "The Complete B2B Advisory & Retainer Toolkit",
+    subtitle: "How to Package High-Clarity retainers, Audits & Scoped Sprints",
+    aud: "Consultants, freelancers, fractional leaders, B2B service teams",
+    demandScore: 90,
+    marketPrice: 79,
+    price: makeMarketPrice(79, 2),
+    qc: 89,
+    marketNote: "Pasaran ~$79, dipatok $77 (-$2) untuk mengubah jasa jam-jaman menjadi paket terukur.",
+    sop: "SOP-ADV-10: Batasi ruang lingkup sprint/retainer, tentukan jadwal review, dan cegah scope creep."
+  },
+  {
+    niche: "Enterprise Security Readiness",
+    title: "The Complete Enterprise Security Readiness Toolkit",
+    subtitle: "How to Prepare Security Checklists, Reviews & Enterprise Rollouts",
+    aud: "B2B teams, product managers, security leads, SaaS founders",
+    demandScore: 86,
+    marketPrice: 159,
+    price: makeMarketPrice(159, 2),
+    qc: 88,
+    marketNote: "Pasaran ~$159, dipatok $157 (-$2) untuk merapikan kesiapan tinjauan keamanan tim.",
+    sop: "SOP-SR-11: Susun daftar periksa kesiapan, tanggung jawab tim, dan alur tindak lanjut tinjauan."
+  },
+  {
+    niche: "Product Discovery & Validation",
+    title: "The Complete Product Discovery & Validation Toolkit",
+    subtitle: "How to Run Buyer Interviews, Price Tests & Offer Validation",
+    aud: "Product managers, founders, builders, consultants, B2B teams",
+    demandScore: 89,
+    marketPrice: 49,
+    price: makeMarketPrice(49, 1),
+    qc: 88,
+    marketNote: "Pasaran ~$49, dipatok $48 (-$1) untuk validasi masalah & minat beli sebelum rilis besar.",
+    sop: "SOP-VAL-12: Jalankan wawancara terstruktur, uji respon harga, dan putuskan langkah iterasi."
   }
 ];
 
@@ -905,6 +989,8 @@ function createPdfBlobFromPages(pages, prod){
   objects[fontRegObjNum] = `<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>`;
   objects[fontBoldObjNum] = `<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>`;
 
+  const headingRegex = /^(JOY CORPORATION|WELCOME PAGE|WHAT'S INSIDE|4-WEEK ACTION PLAN|TABLE OF CONTENTS|10 STEP-BY-STEP MODULES|6 FILLABLE WORKSHEETS|REAL-WORLD CASE STUDIES|PRICING CALCULATOR INSTRUCTIONS|COST-TO-SERVE CALCULATION|MINIMUM VIABLE PRICE FORMULA|PRICING LADDER|BUNDLE BUILDER|DISCOUNT APPROVAL MATRIX|PAID PILOT FRAMEWORK|PILOT ROI TRACKER|PRICING KPI DASHBOARD|LAUNCH CHECKLIST|CUSTOMER INTERVIEW QUESTIONS|ONE-PAGE PRICING PROPOSAL TEMPLATE|EMAIL LAUNCH TEMPLATES|OBJECTION HANDLING GUIDE|FAQ|PRICING DECISION TEMPLATE|CLOSING PAGE|Module \d+|Worksheet \d+)/;
+
   for(let p = 0; p < totalPages; p++){
     const pageLines = pages[p];
     const streamParts = [
@@ -922,9 +1008,9 @@ function createPdfBlobFromPages(pages, prod){
     let y = 696;
     for(const rawLine of pageLines){
       if(y < 52) break;
-      const isHeading = /^(JOY CORPORATION|WELCOME PAGE|WHAT'S INSIDE|4-WEEK ACTION PLAN|TABLE OF CONTENTS|10 STEP-BY-STEP MODULES|6 FILLABLE WORKSHEETS|REAL-WORLD CASE STUDIES|PRICING CALCULATOR INSTRUCTIONS|COST-TO-SERVE CALCULATION|MINIMUM VIABLE PRICE FORMULA|PRICING LADDER|BUNDLE BUILDER|DISCOUNT APPROVAL MATRIX|PAID PILOT FRAMEWORK|PILOT ROI TRACKER|PRICING KPI DASHBOARD|LAUNCH CHECKLIST|CUSTOMER INTERVIEW QUESTIONS|ONE-PAGE PRICING PROPOSAL TEMPLATE|EMAIL LAUNCH TEMPLATES|OBJECTION HANDLING GUIDE|FAQ|PRICING DECISION TEMPLATE|CLOSING PAGE|Module \d+|Worksheet \d+)/.test(rawLine.trim());
-      if(rawLine.trim() !== ""){
-        const fontTag = isHeading ? "/F2 10 Tf" : "/F1 9.5 Tf";
+      const trimmed = rawLine.trim();
+      if(trimmed !== ""){
+        const fontTag = headingRegex.test(trimmed) ? "/F2 10 Tf" : "/F1 9.5 Tf";
         streamParts.push(`BT ${fontTag} 42 ${y} Td (` + escPdfText(rawLine) + ") Tj ET");
       }
       y -= 14;
