@@ -37,7 +37,6 @@ h3{margin:14px 0 6px;color:#e2e8f0;font-size:15px}
 .snap-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #132238;flex-wrap:wrap}
 .snap-item:last-child{border-bottom:0}
 .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:#10203A;border:1px solid #1B2E4B;color:#cbd5e1}
-.resbox{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:10px;margin-top:8px;font-size:12px;color:#cbd5e1;line-height:1.45}
 #modal{position:fixed;inset:0;z-index:1000;background:rgba(4,9,17,.85);display:none;place-items:center;padding:16px;overflow-y:auto}
 .mbox{width:min(94vw,700px);max-height:86vh;overflow-y:auto;background:#0b1526;border:1px solid #1B2E4B;border-radius:18px;padding:18px}
 pre.gumcopy{background:#060E1A;border:1px solid #1B2E4B;border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-word;font-size:12px;color:#cbd5e1;line-height:1.5;margin:8px 0}
@@ -112,7 +111,7 @@ const MARKET_RESEARCH_POOL = [
     price: makeMarketPrice(99, 2),
     qc: 91,
     marketNote: "Pasaran ~$99, dipatok $97 (-$2) untuk paket monetisasi & SOP alur kerja AI.",
-    sop: "SOP-AI-02: Petakan nilai efisiensi waktu, hitung biaya token/operasional, lalu uji skema paket."
+    sop: "SOP-AI-02: Petakan nilai efisiensi waktu, hitung biaya operasional, lalu uji skema paket."
   },
   {
     niche: "ESG Reporting Compliance",
@@ -529,6 +528,121 @@ function delProd(id, returnView){
   go(returnView || "prod");
 }
 
+function buildTopicProfile(x){
+  const rawBlob = `${x.title || ""} ${x.niche || ""} ${x.aud || ""}`.toLowerCase();
+  const numericPrice = (x.price === null || x.price === undefined || x.price === "" || Number.isNaN(Number(x.price)))
+    ? null
+    : Number(x.price);
+
+  let profile = {
+    domainName: "SaaS & B2B Offers",
+    focusArea: "packaging, tier structure, and margin clarity",
+    painPoint: "Unclear pricing tiers, ad-hoc discounting, and slow conversion from interest to paid commitment.",
+    desiredOutcome: "A clear pricing structure, defined cost floor, structured tiers, and repeatable rollout steps.",
+    directCost: 14,
+    supportCost: 16,
+    toolingCost: 5,
+    marginPct: 70,
+    starterPrice: 49,
+    proPrice: 149,
+    entPrice: 399,
+    pilotFee: 299,
+    roiHoursSaved: 18,
+    roiValueSaved: 1200,
+    saasCase: "A workflow SaaS replaces flat entry pricing with clear Starter, Professional, and Enterprise tiers tied to team seats and automation volume.",
+    aiCase: "An AI assistant builder prices around workflow hours saved and review cycles reduced rather than charging only per raw prompt.",
+    esgCase: "An ESG reporting toolkit structures data checklists, audit readiness steps, and milestone deliverables for sustainability teams.",
+    maintCase: "A predictive maintenance toolkit frames value around unplanned equipment downtime avoided and a structured pilot scope.",
+    collabCase: "A secure enterprise collaboration toolkit packages permission controls, shared team SOPs, and rollout guidelines for distributed teams."
+  };
+
+  if(/ai|automat|agent|llm|prompt/.test(rawBlob)){
+    profile = {
+      ...profile,
+      domainName: "AI Workflows & Automation",
+      focusArea: "automation reliability, run cost control, and outcome-based packaging",
+      painPoint: "Unpredictable model/run costs, unclear workflow ownership, and buyers hesitating on open-ended AI deliverables.",
+      desiredOutcome: "Predictable unit economics, clear automation tiers, and measurable time saved per workflow.",
+      directCost: 18,
+      supportCost: 17,
+      toolingCost: 9,
+      marginPct: 70,
+      starterPrice: 59,
+      proPrice: 179,
+      entPrice: 449,
+      pilotFee: 349,
+      roiHoursSaved: 22,
+      roiValueSaved: 1500
+    };
+  }else if(/esg|sustain|carbon|compliance|report/.test(rawBlob)){
+    profile = {
+      ...profile,
+      domainName: "ESG Reporting & Compliance",
+      focusArea: "reporting readiness, evidence structure, and structured advisory tiers",
+      painPoint: "Scattered sustainability data, unclear reporting scope, and long scoping cycles with compliance stakeholders.",
+      desiredOutcome: "Organized reporting checklists, clear package boundaries, and faster readiness reviews.",
+      directCost: 20,
+      supportCost: 22,
+      toolingCost: 8,
+      marginPct: 70,
+      starterPrice: 79,
+      proPrice: 229,
+      entPrice: 549,
+      pilotFee: 450,
+      roiHoursSaved: 25,
+      roiValueSaved: 1800
+    };
+  }else if(/predict|maint|reliability|plant|asset|downtime/.test(rawBlob)){
+    profile = {
+      ...profile,
+      domainName: "Predictive Maintenance & Operations",
+      focusArea: "early issue detection, maintenance scheduling, and pilot validation",
+      painPoint: "Reactive maintenance firefights, unquantified downtime risk, and slow sign-off on operational improvements.",
+      desiredOutcome: "Clear maintenance triggers, structured paid pilot milestones, and tracked downtime reduction.",
+      directCost: 25,
+      supportCost: 25,
+      toolingCost: 10,
+      marginPct: 70,
+      starterPrice: 99,
+      proPrice: 299,
+      entPrice: 699,
+      pilotFee: 599,
+      roiHoursSaved: 30,
+      roiValueSaved: 2400
+    };
+  }else if(/secur|collab|access|govern|enterpris|team/.test(rawBlob)){
+    profile = {
+      ...profile,
+      domainName: "Secure Enterprise Collaboration",
+      focusArea: "access governance, team handoffs, and controlled rollout tiers",
+      painPoint: "Fragmented file/access habits across teams, unclear approval ownership, and friction during wider team adoption.",
+      desiredOutcome: "Clear access rules, repeatable team onboarding, and confident expansion across departments.",
+      directCost: 15,
+      supportCost: 18,
+      toolingCost: 7,
+      marginPct: 70,
+      starterPrice: 59,
+      proPrice: 159,
+      entPrice: 399,
+      pilotFee: 320,
+      roiHoursSaved: 20,
+      roiValueSaved: 1350
+    };
+  }
+
+  const costToServe = profile.directCost + profile.supportCost + profile.toolingCost;
+  const marginDecimal = profile.marginPct / 100;
+  const mvpPrice = Number((costToServe / (1 - marginDecimal)).toFixed(2));
+  const activeOfferPrice = numericPrice !== null ? numericPrice : profile.proPrice;
+
+  return {
+    ...profile,
+    costToServe,
+    mvpPrice,
+    activeOfferPrice
+  };
+}
+
 function pdfAscii(str){
   return String(str ?? "")
     .replace(/[—–]/g, "-")
@@ -582,190 +696,157 @@ function buildFullEnglishToolkitLines(x){
   const title = x.title || "The Complete Pricing Strategy Toolkit";
   const subtitle = x.subtitle || "How to Price SaaS, AI & Enterprise Solutions with Confidence";
   const aud = x.aud || "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams";
-  const priceText = formatPriceLabel(x.price);
+  const tp = buildTopicProfile(x);
 
   const lines = [
-    "==============================================================================",
     "JOY CORPORATION",
     title.toUpperCase(),
     subtitle,
     "Prepared for: " + aud,
-    "Recommended Price Position: " + priceText + " (Reference range: $9.99 - $1,000.00)",
-    "==============================================================================",
     "",
     "WELCOME PAGE",
-    "Welcome to JOY CORPORATION. This toolkit is designed to give builders, founders,",
-    "consultants, and B2B teams a practical, step-by-step system for pricing, packaging,",
-    "and rolling out offers with clarity rather than guesswork.",
-    "Every section focuses on clear definitions, repeatable steps, realistic examples,",
-    "and fill-in-the-blank sheets you can apply right away.",
+    "Welcome to JOY CORPORATION. This toolkit gives you a clear, practical system for " + tp.domainName + ", focusing on " + tp.focusArea + ".",
+    "Every section is written in plain, actionable English with step-by-step modules, worksheets, and real-world examples you can apply right away.",
     "",
     "WHAT'S INSIDE",
     "* Cover Page & Welcome Page",
     "* What's Inside & 4-Week Action Plan",
     "* Table of Contents",
-    "* 10 Step-by-Step Modules (from problem diagnosis to rollout and review)",
+    "* 10 Step-by-Step Modules",
     "* 6 Fillable Worksheets",
-    "* 5 Real-World Case Studies: SaaS, AI, ESG Reporting, Predictive Maintenance,",
-    "  and Secure Enterprise Collaboration",
-    "* Pricing Calculator Instructions, Cost-to-Serve & Minimum Viable Price Formula",
-    "* Pricing Ladder (Starter, Professional, Enterprise), Bundle Builder & Discount Matrix",
+    "* 5 Real-World Case Studies: SaaS, AI, ESG Reporting, Predictive Maintenance, and Secure Enterprise Collaboration",
+    "* Pricing Calculator Instructions, Cost-to-Serve Calculation & Minimum Viable Price Formula",
+    "* Pricing Ladder (Starter, Professional, Enterprise), Bundle Builder & Discount Approval Matrix",
     "* Paid Pilot Framework, Pilot ROI Tracker & Pricing KPI Dashboard",
-    "* Launch Checklist, Customer Interview Questions & One-Page Proposal Template",
-    "* Email Launch Templates, Objection Handling Guide, FAQ & Pricing Decision Template",
-    "* Closing Page & Copyright - JOY CORPORATION",
+    "* Launch Checklist, Customer Interview Questions, One-Page Pricing Proposal Template & Email Launch Templates",
+    "* Objection Handling Guide, FAQ, Pricing Decision Template & Closing Page",
     "",
     "4-WEEK ACTION PLAN",
-    "Week 1 - Audit & Cost Baseline: Map buyer pains, run customer interviews, and",
-    "calculate cost-to-serve plus minimum viable price.",
-    "Week 2 - Ladder & Bundle Design: Build Starter, Professional, and Enterprise tiers,",
-    "configure bundles, and set discount approval rules.",
-    "Week 3 - Pilot & Proposal Readiness: Define paid pilot scope, set up ROI tracking,",
-    "prepare the one-page proposal, and rehearse objection responses.",
-    "Week 4 - Launch & KPI Review: Execute launch checklist, send launch emails, and",
-    "review pricing KPIs weekly to refine decisions.",
+    "Week 1 - Audit & Cost Baseline: Map buyer pains around " + tp.painPoint.toLowerCase() + " and calculate cost-to-serve ($" + tp.costToServe + ") and minimum viable price ($" + tp.mvpPrice + ").",
+    "Week 2 - Ladder & Bundle Design: Set up Starter ($" + tp.starterPrice + "), Professional ($" + tp.proPrice + "), and Enterprise ($" + tp.entPrice + ") tiers, build bundles, and define discount rules.",
+    "Week 3 - Pilot & Proposal Readiness: Structure a paid pilot ($" + tp.pilotFee + " example), set up the ROI tracker, prepare the one-page proposal, and practice objection responses.",
+    "Week 4 - Launch & KPI Review: Run the launch checklist, send launch emails, and review pricing KPIs weekly to refine your offer.",
     "",
     "TABLE OF CONTENTS",
     "01. Cover, Welcome, What's Inside, 4-Week Plan & TOC",
     "02. Modules 1 to 5: Diagnosis, Value, Cost-to-Serve, MVP Price & Tier Ladder",
     "03. Modules 6 to 10: Bundles, Discounts, Paid Pilots, Launch & Iteration",
-    "04. Worksheets 1 to 3: Buyer & Cost Sheets",
-    "05. Worksheets 4 to 6: Ladder, Pilot ROI & Decision Sheets",
-    "06. Real-World Case Studies (5 Domains)",
-    "07. Calculator Guide, Formulas, Ladder, Bundles & Discount Matrix",
-    "08. Paid Pilot Framework, ROI Tracker & Pricing KPI Dashboard",
-    "09. Launch Checklist, Interview Questions, Proposal & Launch Emails",
-    "10. Objection Handling Guide, FAQ, Decision Template & Closing Page",
+    "04. Worksheets 1 to 3: Buyer Pain, Cost-to-Serve/MVP & Pricing Ladder",
+    "05. Worksheets 4 to 6: Discount Log, Pilot ROI Tracker & Decision Log",
+    "06. Real-World Case Studies (SaaS, AI, ESG Reporting, Predictive Maintenance, Secure Enterprise Collaboration)",
+    "07. Calculator Instructions, Cost-to-Serve, MVP Formula, Pricing Ladder, Bundle Builder & Discount Matrix",
+    "08. Paid Pilot Framework, Pilot ROI Tracker & Pricing KPI Dashboard",
+    "09. Launch Checklist, Customer Interview Questions, One-Page Proposal & Email Launch Templates",
+    "10. Objection Handling Guide, FAQ, Pricing Decision Template & Closing Page",
     "",
     "10 STEP-BY-STEP MODULES",
-    "Module 1 - Diagnose Buyer Pricing Friction: Spot where prospects hesitate, ask for",
-    "unstructured custom quotes, or stall after trials.",
-    "Module 2 - Define Concrete Buyer Outcomes: Translate features into measurable",
-    "time saved, fewer errors, or faster team alignment.",
-    "Module 3 - Measure Cost-to-Serve: Include onboarding hours, support load, compute",
-    "or infrastructure usage, and delivery overhead.",
-    "Module 4 - Calculate Minimum Viable Price (MVP): Set a floor price that protects",
-    "margin and covers delivery effort sustainably.",
-    "Module 5 - Build the Pricing Ladder: Structure Starter, Professional, and",
-    "Enterprise tiers with clear upgrade triggers.",
-    "Module 6 - Assemble High-Value Bundles: Group complementary templates, SOPs, or",
-    "implementation add-ons around a clear job-to-be-done.",
-    "Module 7 - Enforce Discount Approval Rules: Replace ad-hoc price cuts with clear",
-    "discount limits, give-gets, and approval thresholds.",
-    "Module 8 - Run Paid Pilots with Clear Scope: Define duration, deliverables, success",
-    "criteria, and conversion path before pilot kickoff.",
-    "Module 9 - Launch with Structured Assets: Pair clear positioning with interviews,",
-    "a one-page proposal, and targeted launch emails.",
-    "Module 10 - Review KPIs & Refine: Track conversion, discount rate, pilot-to-paid",
-    "rate, and buyer feedback on a regular cadence.",
+    "Module 1 - Diagnose Buyer Friction: Identify where buyers stall or ask for ad-hoc quotes in " + tp.domainName + ".",
+    "Module 2 - Define Buyer Value: Connect your offer to " + tp.desiredOutcome.toLowerCase(),
+    "Module 3 - Calculate Cost-to-Serve: Tally direct delivery ($" + tp.directCost + "), support/setup ($" + tp.supportCost + "), and tooling ($" + tp.toolingCost + ") = $" + tp.costToServe + ".",
+    "Module 4 - Set Minimum Viable Price: Compute your floor price using target margin (" + tp.marginPct + "%) so every deal stays healthy.",
+    "Module 5 - Build the Pricing Ladder: Separate Starter ($" + tp.starterPrice + "), Professional ($" + tp.proPrice + "), and Enterprise ($" + tp.entPrice + ") by scope and support level.",
+    "Module 6 - Design High-Value Bundles: Group core guides, worksheets, and checklists into a clear solution bundle.",
+    "Module 7 - Control Discounting: Set clear rules before offering any discount so margins stay protected.",
+    "Module 8 - Run Paid Pilots: Scope a paid pilot (" + tp.pilotFee + " example) with clear deliverables and conversion criteria.",
+    "Module 9 - Launch with Clarity: Pair your offer with buyer interviews, a one-page proposal, and launch emails.",
+    "Module 10 - Review KPIs & Iterate: Track conversion, discount rate, and pilot outcomes to improve each cycle.",
     "",
     "6 FILLABLE WORKSHEETS",
-    "Worksheet 1 - Buyer Pain & Outcome Map: [Buyer Role] | [Top Pain] | [Desired Result]",
-    "Worksheet 2 - Cost-to-Serve & MVP Sheet: [Direct Cost] | [Support/Hours] | [Floor]",
-    "Worksheet 3 - 3-Tier Pricing Ladder Sheet: [Starter] | [Professional] | [Enterprise]",
-    "Worksheet 4 - Discount & Give-Get Log: [Requested Cut %] | [Give-Get] | [Approver]",
-    "Worksheet 5 - Paid Pilot & ROI Tracker: [Baseline] | [Pilot Metric] | [Net Value]",
-    "Worksheet 6 - Pricing Decision & Review Log: [Change] | [Hypothesis] | [Next Check]",
+    "Worksheet 1 - Buyer Pain & Outcome Map: Target Audience (" + aud + ") | Primary Pain | Target Outcome.",
+    "Worksheet 2 - Cost-to-Serve & MVP Sheet: Direct ($" + tp.directCost + ") + Support ($" + tp.supportCost + ") + Tooling ($" + tp.toolingCost + ") = $" + tp.costToServe + " | MVP Floor = $" + tp.mvpPrice + ".",
+    "Worksheet 3 - Pricing Ladder Sheet: Starter ($" + tp.starterPrice + ") | Professional ($" + tp.proPrice + ") | Enterprise ($" + tp.entPrice + ").",
+    "Worksheet 4 - Discount & Give-Get Log: Discount % | Give-Get Requirement | Approval Owner.",
+    "Worksheet 5 - Paid Pilot & ROI Tracker: Baseline Metric | Pilot Result | Hours Saved (" + tp.roiHoursSaved + "h) | Value ($" + tp.roiValueSaved + ").",
+    "Worksheet 6 - Pricing Decision Template Log: Decision | Rationale | Review Date.",
     "",
     "REAL-WORLD CASE STUDIES (5 DOMAINS)",
-    "1. SaaS: A B2B workflow SaaS moves from flat low pricing to usage-aligned tiers,",
-    "   separating small teams from multi-seat growth accounts.",
-    "2. AI Solutions: An AI workflow builder prices around hours saved and review cycles",
-    "   cut rather than raw prompt counts alone.",
-    "3. ESG Reporting: An ESG advisory and reporting toolkit packages structured data",
-    "   checklists and readiness audits with clear deliverable milestones.",
-    "4. Predictive Maintenance: A reliability toolkit frames pricing around avoided",
-    "   unplanned downtime and structured pilot validation.",
-    "5. Secure Enterprise Collaboration: A team collaboration toolkit highlights access",
-    "   governance, clear permission rules, and predictable team rollout.",
+    "1. SaaS: " + tp.saasCase,
+    "2. AI: " + tp.aiCase,
+    "3. ESG Reporting: " + tp.esgCase,
+    "4. Predictive Maintenance: " + tp.maintCase,
+    "5. Secure Enterprise Collaboration: " + tp.collabCase,
     "",
     "PRICING CALCULATOR INSTRUCTIONS",
-    "Step 1: Enter monthly or per-deal delivery cost (support, tools, and team time).",
-    "Step 2: Enter target gross margin goal (for example 60% to 80% for software/kits).",
-    "Step 3: Compare calculated floor price against buyer outcome value and market range",
-    "($9.99 - $1,000.00 depending on scope and depth).",
+    "Step 1: List direct delivery cost, onboarding/support effort, and recurring tool cost per client or package.",
+    "Step 2: Choose your target gross margin (for example " + tp.marginPct + "%).",
+    "Step 3: Apply the Minimum Viable Price formula and check where your offer sits against buyer value and examples ($9.99 up to $1,000.00 depending on depth and scope).",
     "",
     "COST-TO-SERVE CALCULATION",
-    "Cost-to-Serve = Direct Delivery Cost + Onboarding/Setup Cost + Ongoing Support Cost",
-    "Example: $12 setup + $18 support/delivery + $5 tooling = $35 cost-to-serve.",
+    "Cost-to-Serve = Direct Cost + Delivery/Support Cost + Tooling Cost",
+    "Example for " + tp.domainName + ": $" + tp.directCost + " + $" + tp.supportCost + " + $" + tp.toolingCost + " = $" + tp.costToServe + ".",
     "",
     "MINIMUM VIABLE PRICE FORMULA",
-    "Minimum Viable Price (MVP) = Cost-to-Serve / (1 - Target Margin Decimal)",
-    "Example: If Cost-to-Serve = $35 and Target Margin = 0.65 (65%),",
-    "MVP = $35 / (1 - 0.65) = $35 / 0.35 = $100.00 minimum viable price.",
+    "Minimum Viable Price = Cost-to-Serve / (1 - Target Margin Decimal)",
+    "Example: $" + tp.costToServe + " / (1 - " + (marginDecimal).toFixed(2) + ") = $" + tp.mvpPrice + ".",
     "",
     "PRICING LADDER: STARTER, PROFESSIONAL, ENTERPRISE",
-    "* Starter: Core essentials and self-serve templates for solo builders or small teams.",
-    "* Professional: Full toolkit, playbooks, and worksheets for growing teams.",
-    "* Enterprise: Multi-team rollout, governance rules, and structured pilot support.",
+    "* Starter ($" + tp.starterPrice + " example): Core checklists and self-guided templates for getting started fast.",
+    "* Professional ($" + tp.proPrice + " example): Full toolkit, worksheets, and playbooks for active teams.",
+    "* Enterprise ($" + tp.entPrice + " example): Multi-team alignment, governance rules, and structured pilot support.",
     "",
     "BUNDLE BUILDER",
-    "Combine 1 core playbook + 2 ready-to-use worksheets + 1 implementation checklist",
-    "into a cohesive bundle that solves a complete workflow in one purchase.",
+    "Combine 1 core playbook, 2 ready-to-use worksheets, and 1 launch/QC checklist into a single cohesive package.",
     "",
     "DISCOUNT APPROVAL MATRIX",
-    "* 0% - 5% discount: Self-approved when paired with annual/upfront payment.",
-    "* 6% - 10% discount: Requires clear give-get (case study, referral, or scope lock).",
-    "* Over 10% discount: Requires founder/lead review; never discount without a give-get.",
+    "* 0% - 5% discount: Standard tier pricing or annual/upfront commitment.",
+    "* 6% - 10% discount: Requires a clear give-get (such as a written case study, referral, or faster start date).",
+    "* Above 10% discount: Requires leadership sign-off and clear scope/cost adjustment.",
     "",
     "PAID PILOT FRAMEWORK",
-    "1. Define clear problem & baseline metric before day 1.",
-    "2. Set fixed pilot window (e.g., 14 or 30 days) and concrete deliverables.",
-    "3. Agree on conversion criteria to move into a standard plan.",
+    "1. Agree on baseline metrics and current friction before kickoff.",
+    "2. Run a time-boxed pilot (such as 2 to 4 weeks) with defined deliverables.",
+    "3. Review measurable results and transition into a standard tier.",
     "",
     "PILOT ROI TRACKER",
-    "Track: Baseline Metric | Pilot Result | Hours Saved | Cost Avoided | Pilot Fee.",
-    "Compare tangible operational value against total fee before renewal or expansion.",
+    "Example metrics: Baseline Hours | Pilot Hours | Hours Saved (" + tp.roiHoursSaved + "h) | Estimated Value ($" + tp.roiValueSaved + ") | Pilot Fee ($" + tp.pilotFee + ").",
     "",
     "PRICING KPI DASHBOARD",
-    "Monitor: Quote-to-Close Rate, Average Deal/Order Price, Discount Frequency,",
-    "Paid Pilot Conversion Rate, and Refund/Churn Reasons.",
+    "Track weekly: Proposals Sent, Close Rate, Average Order/Contract Value, Discount Rate, and Paid Pilot Conversion Rate.",
     "",
     "LAUNCH CHECKLIST",
-    "[ ] Finalize product title, subtitle, and clear outcome promise",
-    "[ ] Verify cover (1600x900 px) and thumbnail (600x600 px) visuals",
-    "[ ] Publish clear tier scope, deliverables, and FAQ",
-    "[ ] Test checkout flow and post-purchase access",
+    "[ ] Confirm product title, clear outcome statement, and who it is for",
+    "[ ] Verify cover (1600x900 px) and thumbnail (600x600 px) assets",
+    "[ ] Publish clear package summary, FAQ, and checkout details",
+    "[ ] Test download delivery and post-purchase instructions",
     "",
     "CUSTOMER INTERVIEW QUESTIONS",
-    "1. What workaround or spreadsheet are you using for this workflow today?",
-    "2. Where does the current process slow your team down the most?",
-    "3. How do you currently decide whether a tool or toolkit is worth buying?",
-    "4. What would make an offer an easy yes versus a pause?",
+    "1. What is the biggest bottleneck in your current workflow?",
+    "2. How are you handling this today, and what does that cost in time or rework?",
+    "3. What must be true for you to approve a solution right away?",
+    "4. What concerns usually delay a decision on your team?",
     "",
     "ONE-PAGE PRICING PROPOSAL TEMPLATE",
-    "* Current Situation & Goal",
-    "* Recommended Option (Starter / Professional / Enterprise)",
+    "* Current Challenge & Target Outcome",
+    "* Recommended Tier (Starter / Professional / Enterprise)",
     "* Included Deliverables & Timeline",
-    "* Investment, Payment Terms & Next Step",
+    "* Investment, Terms & Next Step",
     "",
     "EMAIL LAUNCH TEMPLATES",
-    "Template 1 (Announcement): Share the core bottleneck, who it helps, and what is inside.",
-    "Template 2 (Practical Walkthrough): Show one concrete example from the toolkit.",
-    "Template 3 (Reminder): Highlight key checklists and answer common questions.",
+    "Email 1 (Launch): Introduce the workflow problem, who the toolkit helps, and what is included.",
+    "Email 2 (Example & ROI): Share a concrete walkthrough and how teams measure value.",
+    "Email 3 (Follow-Up): Summarize key sections and answer common buyer questions.",
     "",
     "OBJECTION HANDLING GUIDE",
-    "* 'It is too expensive': Reframe around cost-to-serve, time saved, and tier fit.",
-    "* 'We can build it ourselves': Acknowledge DIY option; highlight time and structure saved.",
-    "* 'Let us circle back later': Agree on a concrete date and specific open question.",
+    "* 'Too expensive': Compare against cost-to-serve ($" + tp.costToServe + "), hours saved (" + tp.roiHoursSaved + "h), and tier value.",
+    "* 'We can do it ourselves': Show how ready-made structures and worksheets save setup time.",
+    "* 'Not the right time': Set a specific follow-up date and identify the exact blocker.",
     "",
     "FAQ",
-    "Q: Who is this toolkit built for?",
-    "A: SaaS founders, AI product builders, consultants, PMs, freelancers, and B2B teams.",
-    "Q: Does buying a toolkit guarantee specific revenue or sales results?",
-    "A: No. Results depend on your execution, market fit, audience, and consistent follow-through.",
-    "Q: Can I adapt the worksheets and templates to my workflow?",
-    "A: Yes, all frameworks and worksheets are structured to be customized for your team.",
+    "Q: Who is this toolkit designed for?",
+    "A: " + aud + ".",
+    "Q: Does this toolkit guarantee revenue or sales outcomes?",
+    "A: No. Actual results depend on your execution, market demand, offer fit, and consistent follow-through.",
+    "Q: How should I use the price examples in this guide?",
+    "A: Use them as structured reference examples alongside your own numbers and market fit.",
     "",
     "PRICING DECISION TEMPLATE",
-    "Decision Date: __________ | Selected Tier/Price: __________",
-    "Rationale & Cost Check: ____________________________________________________",
-    "Review Date (30 Days): ____________________________________________________",
+    "Offer / Topic: " + title,
+    "Chosen Price / Tier: $" + tp.activeOfferPrice + " (MVP floor: $" + tp.mvpPrice + ")",
+    "Key Notes & Next Review Date: _______________________________________________",
     "",
     "CLOSING PAGE & COPYRIGHT - JOY CORPORATION",
-    "Thank you for building with JOY CORPORATION.",
-    "Copyright (c) JOY CORPORATION. All rights reserved.",
-    "Built for clear execution across SaaS, AI, and B2B operations."
+    "Thank you for using JOY CORPORATION.",
+    "Copyright (c) JOY CORPORATION. All rights reserved."
   ];
 
   const wrapped = wrapPdfLines(lines.join("\n"), 78);
@@ -777,7 +858,7 @@ function buildFullEnglishToolkitLines(x){
   while(pages.length < 40){
     const idx = pages.length - 1;
     const baseSlice = wrapped.slice((idx % Math.max(1, Math.floor(wrapped.length / perPage))) * perPage);
-    pages.push(baseSlice.length ? baseSlice.slice(0, perPage) : ["JOY CORPORATION - Appendix & Reference Notes"]);
+    pages.push(baseSlice.length ? baseSlice.slice(0, perPage) : ["JOY CORPORATION - Toolkit Reference"]);
   }
   return pages;
 }
@@ -806,7 +887,7 @@ function createPdfBlobFromPages(pages, prod){
   objects[fontRegObjNum] = `<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>`;
   objects[fontBoldObjNum] = `<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>`;
 
-  for(let p = 0; p < totalPages; iOrP = p, p++){
+  for(let p = 0; p < totalPages; p++){
     const pageLines = pages[p];
     const streamParts = [
       "0.059 0.165 0.263 rg",
@@ -814,9 +895,9 @@ function createPdfBlobFromPages(pages, prod){
       "0.180 0.620 0.420 rg",
       `0 ${pageH - 46} ${pageW} 4 re f`,
       "1 1 1 rg",
-      "BT /F2 11 Tf 42 764 Td (" + escPdfText("JOY CORPORATION  |  " + (prod.title || "Pricing Strategy Toolkit")) + ") Tj ET",
+      "BT /F2 11 Tf 42 764 Td (" + escPdfText("JOY CORPORATION  |  " + (prod.title || "The Complete Pricing Strategy Toolkit")) + ") Tj ET",
       "0.059 0.165 0.263 rg",
-      "BT /F2 10 Tf 42 718 Td (" + escPdfText(`Section Page ${p + 1} of ${totalPages}`) + ") Tj ET",
+      "BT /F2 10 Tf 42 718 Td (" + escPdfText(`Page ${p + 1} of ${totalPages}`) + ") Tj ET",
       "0.118 0.149 0.188 rg"
     ];
 
@@ -1019,9 +1100,10 @@ function dlThumb(id){
 
 function buildGumroadCopyText(x){
   const title = x.title || "The Complete Pricing Strategy Toolkit";
+  const tp = buildTopicProfile(x);
   const priceNum = (x.price === null || x.price === undefined || x.price === "") ? null : Number(x.price);
-  const priceStr = priceNum !== null && !Number.isNaN(priceNum) ? "$" + priceNum : "$77 ";
-  const summary = "Practical 40+ page PDF pricing toolkit for SaaS, AI, and B2B teams with SOPs, 6 worksheets, real case studies, and launch templates.".slice(0, 195);
+  const priceStr = priceNum !== null && !Number.isNaN(priceNum) ? "$" + priceNum : "$" + tp.proPrice + " (example within $9.99 - $1,000.00 range)";
+  const summary = ("Practical 40+ page PDF toolkit for " + tp.domainName + " with SOPs, 6 worksheets, real case studies, and launch templates.").slice(0, 195);
 
   return [
     "A. Product Name",
@@ -1032,17 +1114,17 @@ function buildGumroadCopyText(x){
     "",
     "C. Product Description",
     "- Hook: Stop guessing your prices and start pricing structured value with confidence.",
-    "- Buyer Problem: Builders, consultants, and teams often underprice, give ad-hoc discounts, or struggle to turn trials and interest into clear structured tiers.",
-    "- Solution: A single 40+ page English PDF toolkit from JOY CORPORATION with step-by-step modules, formulas, worksheets, case studies, and launch assets.",
-    "- Key Benefits: Clear cost-to-serve and MVP pricing math, 3-tier ladder guidance, bundle and discount rules, paid pilot & ROI tracking, and ready-to-use templates.",
+    "- Buyer Problem: " + tp.painPoint,
+    "- Solution: A single 40+ page English PDF toolkit from JOY CORPORATION tailored to " + tp.domainName + " with step-by-step modules, formulas, worksheets, case studies, and launch assets.",
+    "- Key Benefits: " + tp.desiredOutcome + " Includes cost-to-serve ($" + tp.costToServe + ") and MVP pricing ($" + tp.mvpPrice + ") math, 3-tier ladder guidance, discount rules, paid pilot & ROI tracking, and ready-to-use templates.",
     "- What's Inside: Cover, Welcome, What's Inside, 4-Week Action Plan, TOC, 10 Modules, 6 Fillable Worksheets, 5 Case Studies (SaaS, AI, ESG Reporting, Predictive Maintenance, Secure Enterprise Collaboration), Calculator Guide, Cost-to-Serve, MVP Formula, Pricing Ladder, Bundle Builder, Discount Matrix, Paid Pilot & ROI Tracker, KPI Dashboard, Launch Checklist, Interview Questions, One-Page Proposal, Launch Emails, Objection Guide, FAQ, Decision Template, and Closing Page.",
-    "- Who It Is For: SaaS founders, AI product builders, consultants, product managers, freelancers, and B2B teams.",
+    "- Who It Is For: " + (x.aud || "SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams") + ".",
     "- Who It Is Not For: Anyone looking for guaranteed income, get-rich-quick shortcuts, or passive results without execution.",
     "- Format: 1 complete PDF file ready to download after purchase.",
-    "- Call to Action: Get the toolkit now and build a repeatable pricing system this week.",
+    "- Call to Action: Get the toolkit now and build a structured pricing system this week.",
     "",
     "D. Recommended Price",
-    priceStr + ",
+    priceStr,
     "",
     "E. Tags",
     "pricing strategy, saas pricing, ai product, b2b toolkit, founder playbook, value pricing, paid pilot, sop templates",
@@ -1209,15 +1291,15 @@ async function go(v){
       h = `
         <div class="card">
           <h2>Pabrik Produk — Mode Permintaan</h2>
-          <div class="m">Harga dikosongkan untuk permintaan khusus; menghasilkan 1 file PDF lengkap (40+ halaman, English), Cover 1600x900 PNG, Thumbnail 600x600 PNG, dan teks Gumroad A–F.</div>
-          <input id="t" placeholder="Topik / niche (misal: Pricing Strategy)">
+          <div class="m">Harga dikosongkan untuk permintaan khusus; menghasilkan 1 file PDF lengkap (40+ halaman, English) dengan studi kasus &amp; angka dinamis per topik, Cover 1600x900 PNG, Thumbnail 600x600 PNG, dan teks Gumroad A–F.</div>
+          <input id="t" placeholder="Topik / niche (misal: AI Workflow Automation)">
           <input id="a" placeholder="Target audiens (misal: SaaS founders, AI product builders, consultants, product managers, freelancers, B2B teams)">
           <input id="pr" type="number" step="0.01" min="0" placeholder="Harga (kosongkan jika belum ditentukan)">
           <button class="btn p" type="button" onclick="mk()">Buat Draft Permintaan</button>
         </div>
         <div class="card">
           <h2>Pabrik Produk — Mode Otomatis (Riset Market &amp; Harga -$1/-$2)</h2>
-          <div class="m">Meriset 5 topik berbeda dengan patokan pasar yang dikurangi -$1/-$2, lalu memproduksi draf PDF lengkap sesuai SOP.</div>
+          <div class="m">Meriset 5 topik berbeda dengan patokan pasar yang dikurangi -$1/-$2, lalu memproduksi draf PDF lengkap dengan studi kasus &amp; angka dinamis sesuai topik.</div>
           <div class="row">
             <button class="btn g" type="button" onclick="mkAutoBatch(5)">Riset Market &amp; Produksi 5 Produk Otomatis</button>
           </div>
@@ -1354,6 +1436,7 @@ function mk(){
   const item = {
     id: "JOY-" + Date.now(),
     title,
+    niche: rawT,
     subtitle: "How to Price SaaS, AI & Enterprise Solutions with Confidence",
     price,
     status: "draft",
@@ -1401,6 +1484,7 @@ function mkAutoBatch(count){
   const created = picked.map((item, i) => ({
     id: "JOY-AUTO-" + (now + i),
     title: item.title,
+    niche: item.niche,
     subtitle: item.subtitle,
     price: item.price,
     marketPrice: item.marketPrice,
